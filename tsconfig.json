@@ -13,7 +13,7 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "typeRoots": ["./node_modules/@types"],
-    "types": ["node"],
+    "types": ["jest", "node"],
     "lib": ["es2015", "es2017", "dom"],
     "pretty": false,
     "incremental": true
