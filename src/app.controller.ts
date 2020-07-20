@@ -1,12 +1,15 @@
 import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
+import {BaseResponse} from "./entities/base.response";
 
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  getHello(): BaseResponse<string> {
+    const response: BaseResponse<string> = {}
+    response.data = this.appService.getHello();
+    return response;
   }
 }
