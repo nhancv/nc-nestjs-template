@@ -12,7 +12,7 @@ async function bootstrap() {
   const options = new DocumentBuilder()
   .setTitle('Default example')
   .setDescription('The default API description')
-  .setVersion('1.0')
+  .setVersion(process.env.npm_package_version ?? '')
   .addTag('default')
   .build();
   const document = SwaggerModule.createDocument(app, options);
