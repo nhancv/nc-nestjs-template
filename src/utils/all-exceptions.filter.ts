@@ -1,5 +1,5 @@
-import {ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus,} from '@nestjs/common';
-import {BaseResponse} from "../entities/base.response";
+import {ArgumentsHost, BadRequestException, Catch, ExceptionFilter, HttpException, HttpStatus,} from '@nestjs/common';
+import {BaseResponse} from "../responses/base.response";
 
 // https://docs.nestjs.com/exception-filters
 @Catch()
@@ -15,11 +15,22 @@ export class AllExceptionsFilter implements ExceptionFilter {
                 ? exception.getStatus()
                 : HttpStatus.INTERNAL_SERVER_ERROR;
         
+        let errorMessage = 'Internal server error';
+        if (exception instanceof BadRequestException) {
+            const exceptionRes = exception.getResponse();
+            if(exceptionRes instanceof Object && exceptionRes.hasOwnProperty('message')) {
+                errorMessage = JSON.stringify(exceptionRes['message'])
+            } else {
+                errorMessage = JSON.stringify(exceptionRes);
+            }
+        } else if(exception instanceof Object && exception.hasOwnProperty('message')) {
+            errorMessage = exception['message'];
+        }
+        
         const error: BaseResponse<any> = {
             error: {
                 code: status,
-                message: (exception instanceof Object && exception.hasOwnProperty('message'))
-                    ? exception['message'] : 'Internal server error'
+                message: errorMessage,
             }
         }
         response.status(status).json(error);
