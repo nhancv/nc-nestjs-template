@@ -1,11 +1,20 @@
-import {ArgumentsHost, BadRequestException, Catch, ExceptionFilter, HttpException, HttpStatus,} from '@nestjs/common';
+import {
+    ArgumentsHost,
+    BadRequestException,
+    Catch,
+    ExceptionFilter,
+    HttpException,
+    HttpStatus,
+    Logger,
+} from '@nestjs/common';
 import {BaseResponse} from "../responses/base.response";
 
 // https://docs.nestjs.com/exception-filters
 @Catch()
 export class AllExceptionsFilter implements ExceptionFilter {
+    private readonly logger = new Logger(AllExceptionsFilter.name);
+    
     catch(exception: unknown, host: ArgumentsHost) {
-        console.log(exception);
         const ctx = host.switchToHttp();
         const response = ctx.getResponse();
         const request = ctx.getRequest();
@@ -33,6 +42,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
                 message: errorMessage,
             }
         }
+        this.logger.error(error);
         response.status(status).json(error);
     }
 }
