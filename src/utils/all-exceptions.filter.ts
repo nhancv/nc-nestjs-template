@@ -8,6 +8,7 @@ import {
     Logger,
 } from '@nestjs/common';
 import {BaseResponse} from "../responses/base.response";
+import {AppException} from "./app-exception";
 
 // https://docs.nestjs.com/exception-filters
 @Catch()
@@ -24,15 +25,15 @@ export class AllExceptionsFilter implements ExceptionFilter {
                 ? exception.getStatus()
                 : HttpStatus.INTERNAL_SERVER_ERROR;
         
-        let errorMessage = 'Internal server error';
+        let errorMessage: string = 'Internal server error';
         if (exception instanceof BadRequestException) {
             const exceptionRes = exception.getResponse();
-            if(exceptionRes instanceof Object && exceptionRes.hasOwnProperty('message')) {
+            if (exceptionRes.hasOwnProperty('message')) {
                 errorMessage = JSON.stringify(exceptionRes['message'])
             } else {
                 errorMessage = JSON.stringify(exceptionRes);
             }
-        } else if(exception instanceof Object && exception.hasOwnProperty('message')) {
+        } else if (exception instanceof Object && exception.hasOwnProperty('message')) {
             errorMessage = exception['message'];
         }
         
@@ -42,7 +43,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
                 message: errorMessage,
             }
         }
-        this.logger.error(error);
+        this.logger.error(new AppException('catch:46', error));
         response.status(status).json(error);
     }
 }
