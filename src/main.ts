@@ -1,10 +1,11 @@
 import {NestFactory} from '@nestjs/core';
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import {DocumentBuilder, SwaggerModule} from '@nestjs/swagger';
 import {AppModule} from './app.module';
 import {AllExceptionsFilter} from "./utils/all-exceptions.filter";
-import {ValidationPipe} from "@nestjs/common";
+import {Logger, ValidationPipe} from "@nestjs/common";
 
 async function bootstrap() {
+  const logger = new Logger('main');
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api');
   app.useGlobalFilters(new AllExceptionsFilter());
@@ -21,7 +22,7 @@ async function bootstrap() {
   SwaggerModule.setup('docs', app, document);
   
   await app.listen(3000, '0.0.0.0');
-  console.log(`Application is running on: ${await app.getUrl()}`);
+  logger.log(`Application is running on: ${await app.getUrl()}`);
 }
 
 bootstrap().then();
