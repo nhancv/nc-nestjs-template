@@ -387,6 +387,12 @@ Temporary Items
 
 =======
 # Local
-docker-compose.yml
-.env
+.env*
+!.env_sample
+secret
+upload
+keys
+*.DS_Store
+
+# uncomment if you want
 dist
