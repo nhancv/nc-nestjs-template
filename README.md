@@ -19,6 +19,9 @@ $ npm run start
 # watch mode
 $ npm run start:dev
 
+# build production app
+$ npm run build
+
 # production mode
 $ npm run start:prod
 ```
@@ -36,4 +39,17 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+## Deploy to integration [HEROKU]
+
+### Getting started with Heroku
+```
+heroku login
+heroku create <app name>
+git add .
+git commit -m 'deploy to heroku'
+git push heroku master
+
+Test at: <app name>.herokuapp.com
+Log view: heroku logs -t
+```
 
