@@ -10,7 +10,7 @@ async function bootstrap() {
   app.setGlobalPrefix('api');
   app.useGlobalFilters(new AllExceptionsFilter());
   app.useGlobalPipes(new ValidationPipe());
-  
+
   // Enable Swagger api docs module
   const options = new DocumentBuilder()
   .setTitle('Default example')
@@ -20,8 +20,9 @@ async function bootstrap() {
   .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('docs', app, document);
-  
-  await app.listen(3000, '0.0.0.0');
+
+  const port = parseInt(process.env.PORT || '3000');
+  await app.listen(port, '0.0.0.0');
   logger.log(`Application is running on: ${await app.getUrl()}`);
 }
 
