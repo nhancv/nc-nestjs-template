@@ -8,7 +8,7 @@ import {ApiOkResponse, ApiOperation, ApiTags} from "@nestjs/swagger";
 export class AppController {
   constructor(private readonly appService: AppService) {
   }
-  
+
   @Get()
   @ApiOkResponse({
     description: 'Test app works',

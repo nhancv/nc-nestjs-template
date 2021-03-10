@@ -1,9 +1,9 @@
 export class AppException {
-    tag: string;
-    e: any;
+  tag: string;
+  e: any;
 
-    constructor(tag: string, e: any) {
-        this.tag = tag;
-        this.e = e;
-    }
+  constructor(tag: string, e: any) {
+    this.tag = tag;
+    this.e = e;
+  }
 }

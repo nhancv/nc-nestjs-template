@@ -13,11 +13,11 @@ async function bootstrap() {
 
   // Enable Swagger api docs module
   const options = new DocumentBuilder()
-  .setTitle('Default example')
-  .setDescription('The default API description')
-  .setVersion(process.env.npm_package_version ?? '')
-  .addTag('default')
-  .build();
+    .setTitle('Default example')
+    .setDescription('The default API description')
+    .setVersion(process.env.npm_package_version ?? '')
+    .addTag('default')
+    .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('docs', app, document);
 

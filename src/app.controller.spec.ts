@@ -1,7 +1,6 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import {BaseResponse} from "./responses/base.response";
+import {Test, TestingModule} from '@nestjs/testing';
+import {AppController} from './app.controller';
+import {AppService} from './app.service';
 
 describe('AppController', () => {
   let app: TestingModule;
@@ -16,7 +15,7 @@ describe('AppController', () => {
   describe('getHello', () => {
     it('should return {"data": "Hello World!"}', () => {
       const appController = app.get<AppController>(AppController);
-      expect(appController.getHello()).toEqual( {data: "Hello World!"});
+      expect(appController.getHello()).toEqual({data: "Hello World!"});
     });
   });
 });
