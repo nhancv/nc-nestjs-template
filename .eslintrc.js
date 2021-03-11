@@ -25,5 +25,6 @@ module.exports = {
     '@typescript-eslint/class-name-casing': 'off',
     '@typescript-eslint/no-empty-function': 'off',
     '@typescript-eslint/no-inferrable-types': 'off',
+    'prefer-const': 'warn'
   },
 };
