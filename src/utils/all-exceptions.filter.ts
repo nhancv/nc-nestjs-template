@@ -7,7 +7,7 @@ import {
   HttpStatus,
   Logger,
 } from '@nestjs/common';
-import {BaseResponse} from "../responses/base.response";
+import {BaseResponse} from "../models/responses/base.response";
 import {AppException} from "./app-exception";
 
 // https://docs.nestjs.com/exception-filters
