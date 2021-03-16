@@ -8,4 +8,4 @@ class AppException {
     }
 }
 exports.AppException = AppException;
-//# sourceMappingURL=app-exception.js.map
+//# sourceMappingURL=app.exception.js.map

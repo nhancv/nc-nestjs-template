@@ -4,8 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@nestjs/core");
-const app_module_1 = require("./packages/app/app.module");
-const all_exceptions_filter_1 = require("./utils/all-exceptions.filter");
+const app_module_1 = require("./app/app.module");
+const all_exception_filter_1 = require("./utils/all.exception.filter");
 const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
 const morgan_1 = __importDefault(require("morgan"));
@@ -18,7 +18,7 @@ async function bootstrap() {
     const morganFormat = '[:date] :method :url :status - :response-time ms :user-agent';
     app.use(morgan_1.default(morganFormat));
     app.setGlobalPrefix('api');
-    app.useGlobalFilters(new all_exceptions_filter_1.AllExceptionsFilter());
+    app.useGlobalFilters(new all_exception_filter_1.AllExceptionFilter());
     app.useGlobalPipes(new common_1.ValidationPipe());
     const options = new swagger_1.DocumentBuilder()
         .setTitle('The API document')

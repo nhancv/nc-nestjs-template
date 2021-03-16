@@ -1401,12 +1401,12 @@
         "signature": "8f1241f5d9f0d3d72117768b3c974e462840fbd85026fb66685078945404cf2f",
         "affectsGlobalScope": false
       },
-      "../src/packages/app/app.service.ts": {
+      "../src/app/app.service.ts": {
         "version": "7ef3a27bb59ce2184e0b30cca961b87c9a47becb7827911ee8d69c70f280711e",
         "signature": "653711fba8904aa27fd8911b63cf526e7b334e13a292da4cefdbbe179ac3f3f2",
         "affectsGlobalScope": false
       },
-      "../src/models/responses/base.response.ts": {
+      "../src/utils/base.response.ts": {
         "version": "929121ba5d75550705173f958cbda8e46ead24742f1607bfe3baecc4dd15f8bf",
         "signature": "aed8f3e45fe8dcb3273c8de161e592704037b048cf181e6ae0150042ef7c03d8",
         "affectsGlobalScope": false
@@ -1596,9 +1596,9 @@
         "signature": "8f1241f5d9f0d3d72117768b3c974e462840fbd85026fb66685078945404cf2f",
         "affectsGlobalScope": false
       },
-      "../src/packages/app/app.controller.ts": {
-        "version": "fa4cc160a627e103a4f0d10792bb2b9a6b1f7ee2d993348ea1f8b7f719f7ae87",
-        "signature": "48fed997913f971c1f2dee287ef0ec0e545bdfcff613165775ebf2a489be24bd",
+      "../src/app/app.controller.ts": {
+        "version": "47fbabb8070b73031e5a9809ead3570cf9f6d34de3f307e6207a40d5fac365b9",
+        "signature": "d760189d8445292aa7976d2ac356beeb423fff297d39f0482690c7cae50b9ae5",
         "affectsGlobalScope": false
       },
       "../node_modules/@nestjs/serve-static/dist/interfaces/serve-static-options.interface.d.ts": {
@@ -1651,19 +1651,19 @@
         "signature": "8f1241f5d9f0d3d72117768b3c974e462840fbd85026fb66685078945404cf2f",
         "affectsGlobalScope": false
       },
-      "../src/packages/app/app.module.ts": {
-        "version": "a5a4504391ee90627fef9fbb6c3ed97dd4e734934eb646356a5bc40538ff84e0",
+      "../src/app/app.module.ts": {
+        "version": "a70419137e5a08d9ce0e0004ff7ad324e7d609ca766588dfdfb81289c96802aa",
         "signature": "b82491e2990291580288c5602d4c017238977749d52b17391f0e45d9a29be644",
         "affectsGlobalScope": false
       },
-      "../src/utils/app-exception.ts": {
+      "../src/utils/app.exception.ts": {
         "version": "55f8e533eccfbb432d6c04de50ae9f6a338f37f42f9820536e64fde7ed0db17c",
         "signature": "bcf3440b28ea7d39fe61776159442a7f1102299d078033d4057f3b1307560139",
         "affectsGlobalScope": false
       },
-      "../src/utils/all-exceptions.filter.ts": {
-        "version": "3c34ad2df434e8a4d5cbb1fa5034904e08ff396b3627bb50aba68eeef0b1ee1c",
-        "signature": "1433577d5026f317ffa9c07901ad307fb6a97c3b43a84580503db17262788a60",
+      "../src/utils/all.exception.filter.ts": {
+        "version": "14ac49f8187a04838774dddab49db789499c63532a51568767ac8de89e61421c",
+        "signature": "cc50550b00ae3551a865c4a50cf35a39c502ca94532bf4abe714d5c483eceb36",
         "affectsGlobalScope": false
       },
       "../node_modules/@types/node/globals.d.ts": {
@@ -1907,7 +1907,7 @@
         "affectsGlobalScope": false
       },
       "../src/main.ts": {
-        "version": "92a0c808c7088802929108507349746b8dc9399cfa207a6c8c91154f5dd5a2c5",
+        "version": "ee77b80009dfc1dad2db5ea27804778c4951ce64595218cd13aa99ef68aef134",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
         "affectsGlobalScope": false
       },
@@ -3330,36 +3330,36 @@
       "../node_modules/rxjs/internal/util/pipe.d.ts": [
         "../node_modules/rxjs/internal/types.d.ts"
       ],
+      "../src/app/app.controller.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@nestjs/swagger/index.d.ts",
+        "../src/app/app.service.ts",
+        "../src/utils/base.response.ts"
+      ],
+      "../src/app/app.module.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@nestjs/config/index.d.ts",
+        "../node_modules/@nestjs/serve-static/index.d.ts",
+        "../node_modules/@types/node/path.d.ts",
+        "../src/app/app.controller.ts",
+        "../src/app/app.service.ts"
+      ],
+      "../src/app/app.service.ts": [
+        "../node_modules/@nestjs/common/index.d.ts"
+      ],
       "../src/main.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
         "../node_modules/@nestjs/core/index.d.ts",
         "../node_modules/@nestjs/swagger/index.d.ts",
         "../node_modules/@types/morgan/index.d.ts",
         "../node_modules/moment/ts3.1-typings/moment.d.ts",
-        "../src/packages/app/app.module.ts",
-        "../src/utils/all-exceptions.filter.ts"
+        "../src/app/app.module.ts",
+        "../src/utils/all.exception.filter.ts"
       ],
-      "../src/packages/app/app.controller.ts": [
+      "../src/utils/all.exception.filter.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
-        "../node_modules/@nestjs/swagger/index.d.ts",
-        "../src/models/responses/base.response.ts",
-        "../src/packages/app/app.service.ts"
-      ],
-      "../src/packages/app/app.module.ts": [
-        "../node_modules/@nestjs/common/index.d.ts",
-        "../node_modules/@nestjs/config/index.d.ts",
-        "../node_modules/@nestjs/serve-static/index.d.ts",
-        "../node_modules/@types/node/path.d.ts",
-        "../src/packages/app/app.controller.ts",
-        "../src/packages/app/app.service.ts"
-      ],
-      "../src/packages/app/app.service.ts": [
-        "../node_modules/@nestjs/common/index.d.ts"
-      ],
-      "../src/utils/all-exceptions.filter.ts": [
-        "../node_modules/@nestjs/common/index.d.ts",
-        "../src/models/responses/base.response.ts",
-        "../src/utils/app-exception.ts"
+        "../src/utils/app.exception.ts",
+        "../src/utils/base.response.ts"
       ]
     },
     "exportedModulesMap": {
@@ -4711,11 +4711,11 @@
       "../node_modules/rxjs/internal/util/pipe.d.ts": [
         "../node_modules/rxjs/internal/types.d.ts"
       ],
-      "../src/packages/app/app.controller.ts": [
-        "../src/models/responses/base.response.ts",
-        "../src/packages/app/app.service.ts"
+      "../src/app/app.controller.ts": [
+        "../src/app/app.service.ts",
+        "../src/utils/base.response.ts"
       ],
-      "../src/utils/all-exceptions.filter.ts": [
+      "../src/utils/all.exception.filter.ts": [
         "../node_modules/@nestjs/common/index.d.ts"
       ]
     },

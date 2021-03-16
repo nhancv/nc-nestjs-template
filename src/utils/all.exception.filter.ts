@@ -7,13 +7,13 @@ import {
   HttpStatus,
   Logger,
 } from '@nestjs/common';
-import {BaseResponse} from "../models/responses/base.response";
-import {AppException} from "./app-exception";
+import {BaseResponse} from "./base.response";
+import {AppException} from "./app.exception";
 
 // https://docs.nestjs.com/exception-filters
 @Catch()
-export class AllExceptionsFilter implements ExceptionFilter {
-  private readonly logger = new Logger(AllExceptionsFilter.name);
+export class AllExceptionFilter implements ExceptionFilter {
+  private readonly logger = new Logger(AllExceptionFilter.name);
 
   catch(exception: unknown, host: ArgumentsHost) {
     const ctx = host.switchToHttp();

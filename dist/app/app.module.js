@@ -20,7 +20,7 @@ AppModule = __decorate([
         imports: [
             config_1.ConfigModule.forRoot({ isGlobal: true }),
             serve_static_1.ServeStaticModule.forRoot({
-                rootPath: path_1.join(__dirname, '..', '..', '..', 'public'),
+                rootPath: path_1.join(__dirname, '..', '..', 'public'),
                 exclude: ['/api*'],
             }),
         ],

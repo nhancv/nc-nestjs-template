@@ -9,7 +9,7 @@ import {join} from 'path';
   imports: [
     ConfigModule.forRoot({isGlobal: true}),
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', '..', '..', 'public'),
+      rootPath: join(__dirname, '..', '..', 'public'),
       exclude: ['/api*'],
     }),
   ],

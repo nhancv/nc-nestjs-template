@@ -5,14 +5,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var AllExceptionsFilter_1;
+var AllExceptionFilter_1;
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AllExceptionsFilter = void 0;
+exports.AllExceptionFilter = void 0;
 const common_1 = require("@nestjs/common");
-const app_exception_1 = require("./app-exception");
-let AllExceptionsFilter = AllExceptionsFilter_1 = class AllExceptionsFilter {
+const app_exception_1 = require("./app.exception");
+let AllExceptionFilter = AllExceptionFilter_1 = class AllExceptionFilter {
     constructor() {
-        this.logger = new common_1.Logger(AllExceptionsFilter_1.name);
+        this.logger = new common_1.Logger(AllExceptionFilter_1.name);
     }
     catch(exception, host) {
         const ctx = host.switchToHttp();
@@ -44,8 +44,8 @@ let AllExceptionsFilter = AllExceptionsFilter_1 = class AllExceptionsFilter {
         response.status(status).json(error);
     }
 };
-AllExceptionsFilter = AllExceptionsFilter_1 = __decorate([
+AllExceptionFilter = AllExceptionFilter_1 = __decorate([
     common_1.Catch()
-], AllExceptionsFilter);
-exports.AllExceptionsFilter = AllExceptionsFilter;
-//# sourceMappingURL=all-exceptions.filter.js.map
+], AllExceptionFilter);
+exports.AllExceptionFilter = AllExceptionFilter;
+//# sourceMappingURL=all.exception.filter.js.map

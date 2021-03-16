@@ -1,6 +1,6 @@
 import {NestFactory} from '@nestjs/core';
-import {AppModule} from './packages/app/app.module';
-import {AllExceptionsFilter} from "./utils/all-exceptions.filter";
+import {AppModule} from './app/app.module';
+import {AllExceptionFilter} from "./utils/all.exception.filter";
 import {Logger, ValidationPipe} from "@nestjs/common";
 import {DocumentBuilder, SwaggerModule} from "@nestjs/swagger";
 import morgan from 'morgan';
@@ -20,7 +20,7 @@ async function bootstrap() {
   const morganFormat = '[:date] :method :url :status - :response-time ms :user-agent';
   app.use(morgan(morganFormat));
   app.setGlobalPrefix('api');
-  app.useGlobalFilters(new AllExceptionsFilter());
+  app.useGlobalFilters(new AllExceptionFilter());
   app.useGlobalPipes(new ValidationPipe());
   // Enable Swagger api docs module
   const options = new DocumentBuilder()

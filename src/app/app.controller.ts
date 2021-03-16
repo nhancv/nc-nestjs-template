@@ -1,6 +1,6 @@
 import {Controller, Get} from '@nestjs/common';
 import {AppService} from './app.service';
-import {BaseResponse} from "../../models/responses/base.response";
+import {BaseResponse} from "../utils/base.response";
 import {ApiOkResponse, ApiOperation, ApiTags} from "@nestjs/swagger";
 
 @ApiTags('app')
