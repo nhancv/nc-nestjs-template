@@ -24,10 +24,9 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
   // Enable Swagger api docs module
   const options = new DocumentBuilder()
-    .setTitle('Default example')
-    .setDescription('The default API description')
+    .setTitle('The API document')
+    .setDescription('----------')
     .setVersion(process.env.npm_package_version ?? '')
-    .addTag('default')
     .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, options);

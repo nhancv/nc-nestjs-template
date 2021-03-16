@@ -21,10 +21,9 @@ async function bootstrap() {
     app.useGlobalFilters(new all_exceptions_filter_1.AllExceptionsFilter());
     app.useGlobalPipes(new common_1.ValidationPipe());
     const options = new swagger_1.DocumentBuilder()
-        .setTitle('Default example')
-        .setDescription('The default API description')
+        .setTitle('The API document')
+        .setDescription('----------')
         .setVersion((_a = process.env.npm_package_version) !== null && _a !== void 0 ? _a : '')
-        .addTag('default')
         .addBearerAuth()
         .build();
     const document = swagger_1.SwaggerModule.createDocument(app, options);
