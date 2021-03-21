@@ -22,14 +22,22 @@ pm2 install pm2-logrotate
 
 ## Install MongoDB
 ```
-wget -qO - https://www.mongodb.org/static/pgp/server-4.2.asc | sudo apt-key add -
-echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.2.list
+* Ubuntu 18.04 (Bionic)
+wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
+echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
 
 sudo apt-get update
 sudo apt-get install -y build-essential
 sudo apt-get install -y mongodb-org
 sudo systemctl enable mongod
 sudo service mongod start
+
+* Note for Raspbian
+sudo apt update
+sudo apt upgrade
+sudo apt install mongodb
+sudo systemctl enable mongodb
+sudo systemctl start mongodb
 ```
 
 - Controls
