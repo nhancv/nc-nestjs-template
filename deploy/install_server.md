@@ -35,7 +35,7 @@ sudo apt install git -y
 ## Setup nodejs
 ```
 curl -sL https://deb.nodesource.com/setup_15.x | sudo -E bash -
-sudo apt-get install -y nodejs
+sudo apt install -y nodejs
 
 # Install pm2
 sudo npm install pm2 -g
@@ -52,9 +52,9 @@ https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
 wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
 echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
 
-sudo apt-get update
-sudo apt-get install -y build-essential
-sudo apt-get install -y mongodb-org
+sudo apt update
+sudo apt install -y build-essential
+sudo apt install -y mongodb-org
 sudo systemctl enable mongod
 sudo service mongod start
 
