@@ -3,6 +3,18 @@
 ## Server
 ```
 ssh root@1.2.3.4
+
+# Add user
+:~# adduser nhancv
+:~# exit
+
+ssh nhancv@1.2.3.4
+:~$
+
+# Add authorized key to login via ssh key on client
+:~$ mkdir ~/.ssh
+:~$ nano ~/.ssh/authorized_keys
+-> copy ~/.ssh/id_rsa.pub on mac client to vps server
 ```
 
 ## Setup git
