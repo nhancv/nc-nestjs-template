@@ -6,6 +6,15 @@ ssh root@1.2.3.4
 
 # Add user
 :~# adduser nhancv
+:~# adduser nhancv sudo
+:~# usermod -aG sudo nhancv
+
+# Config sudo without password
+:~# sudo visudo
+=> Add to bottom of file
+nhancv ALL=(ALL) NOPASSWD: ALL
+
+:~# su - nhancv
 :~# exit
 
 ssh nhancv@1.2.3.4
@@ -15,6 +24,7 @@ ssh nhancv@1.2.3.4
 :~$ mkdir ~/.ssh
 :~$ nano ~/.ssh/authorized_keys
 -> copy ~/.ssh/id_rsa.pub on mac client to vps server
+
 ```
 
 ## Setup git
