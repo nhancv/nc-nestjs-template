@@ -22,6 +22,9 @@ ssh nhancv@1.2.3.4
 
 # Add authorized key to login via ssh key on client
 :~$ mkdir ~/.ssh
+:~$ ssh-keygen -t rsa
+-> copy ssh to register for git version system: cat ~/.ssh/id_rsa.pub
+
 :~$ nano ~/.ssh/authorized_keys
 -> copy ~/.ssh/id_rsa.pub on mac client to vps server
 

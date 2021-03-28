@@ -20,6 +20,7 @@ sudo crontab -e
 
 ## Inside the crontab prompt insert the following mongodump command:
 ```
+## Create daily backup
 # Every day at 12:00 AM
 0 0 * * * mongodump --username DB_USERNAME --password DB_PASSWORD --db nhancv --out /var/backups/mongobackups/`date +"%m-%d-%y"`
 ```
@@ -32,8 +33,10 @@ find /var/backups/mongobackups/ -mtime +7 -exec rm -rf {} \;
 ### Config auto delete old backups
 ```
 sudo crontab -e
+
+### Config auto delete old backups
 # At 12:00:01 AM
-1 0 0 * * * find /var/backups/mongobackups/ -mtime +7 -exec rm -rf {} \;
+1 0 * * * find /var/backups/mongobackups/ -mtime +7 -exec rm -rf {} \;
 ```
 
 # Restoring and Migrating a MongoDB Database
