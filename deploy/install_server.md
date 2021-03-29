@@ -30,6 +30,21 @@ ssh nhancv@1.2.3.4
 
 ```
 
+## Setup timezone (optional)
+```
+# View current timezone info
+timedatectl
+
+# Show all Available Timezones
+timedatectl list-timezones
+
+# Set timezone
+sudo timedatectl set-timezone Asia/Ho_Chi_Minh
+
+# Confirm Timezone Change
+timedatectl
+```
+
 ## Setup git
 ```
 sudo apt install git -y
