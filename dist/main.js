@@ -10,10 +10,14 @@ const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
 const morgan_1 = __importDefault(require("morgan"));
 const moment_1 = __importDefault(require("moment"));
+const migration_service_1 = require("./packages/migration/migration.service");
+const migration_module_1 = require("./packages/migration/migration.module");
 async function bootstrap() {
     var _a;
     const logger = new common_1.Logger('main');
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
+    const migrationService = app.select(migration_module_1.MigrationModule).get(migration_service_1.MigrationService, { strict: true });
+    await migrationService.migrate();
     morgan_1.default.token('date', (req, res, tz) => moment_1.default().utc().utcOffset("+0700").format());
     const morganFormat = '[:date] :method :url :status - :response-time ms :user-agent';
     app.use(morgan_1.default(morganFormat));

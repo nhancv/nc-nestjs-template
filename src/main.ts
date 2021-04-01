@@ -5,6 +5,8 @@ import {Logger, ValidationPipe} from "@nestjs/common";
 import {DocumentBuilder, SwaggerModule} from "@nestjs/swagger";
 import morgan from 'morgan';
 import moment from 'moment';
+import {MigrationService} from "./packages/migration/migration.service";
+import {MigrationModule} from "./packages/migration/migration.module";
 
 async function bootstrap() {
   const logger = new Logger('main');
@@ -12,6 +14,10 @@ async function bootstrap() {
   // //------Standalone Applications------//
   // // https://docs.nestjs.com/standalone-applications
   // // Application logic......
+  // Get migration module: https://docs.nestjs.com/standalone-applications
+  const migrationService = app.select(MigrationModule).get(MigrationService, {strict: true});
+  await migrationService.migrate();
+
   // const appService = app.get(AppService);
   // logger.log(appService.getHello());
 
