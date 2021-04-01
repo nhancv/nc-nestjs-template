@@ -27,13 +27,13 @@ export class AppLog extends Document {
 
   @Prop({type: Date, default: Date.now})
   @ApiProperty()
-  createdAt: number;
+  createdAt: Date;
 
   @Prop({type: Date, default: Date.now})
   @ApiProperty()
-  updatedAt: number;
+  updatedAt: Date;
 
-  constructor(doc: any, type: string, message: string, index1: string, index2: string, index3: string, createdAt: number, updatedAt: number) {
+  constructor(doc: any, type: string, message: string, index1: string, index2: string, index3: string, createdAt: Date, updatedAt: Date) {
     super(doc);
     this.type = type;
     this.message = message;

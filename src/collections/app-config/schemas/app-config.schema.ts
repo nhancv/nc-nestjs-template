@@ -14,13 +14,13 @@ export class AppConfig extends Document {
 
   @Prop({type: Date, default: Date.now})
   @ApiProperty()
-  createdAt: number;
+  createdAt: Date;
 
   @Prop({type: Date, default: Date.now})
   @ApiProperty()
-  updatedAt: number;
+  updatedAt: Date;
 
-  constructor(version: string, maintenance: boolean, createdAt: number, updatedAt: number) {
+  constructor(version: string, maintenance: boolean, createdAt: Date, updatedAt: Date) {
     super();
     this.version = version;
     this.maintenance = maintenance;
