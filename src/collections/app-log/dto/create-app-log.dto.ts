@@ -4,7 +4,7 @@ import {ApiProperty} from "@nestjs/swagger";
 export class CreateAppLogDto {
 
   @IsNotEmpty()
-  @ApiProperty()
+  @ApiProperty({description: 'Log type', example: 'app'})
   type: string;
 
   @IsNotEmpty()
