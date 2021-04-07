@@ -10,7 +10,7 @@ sudo mkdir /var/backups/mongobackups/
 
 ## Backup command
 ```
-sudo mongodump --username DB_USERNAME --password DB_PASSWORD --db nhancv --db nhancv --out /var/backups/mongobackups/`date +"%m-%d-%y"`
+sudo mongodump --username DB_USERNAME --password DB_PASSWORD --db DB_NAME --out /var/backups/mongobackups/`date +"%m-%d-%y"`
 ```
 
 ## Create daily backup
@@ -22,7 +22,7 @@ sudo crontab -e
 ```
 ## Create daily backup
 # Every day at 12:00 AM
-0 0 * * * mongodump --username DB_USERNAME --password DB_PASSWORD --db nhancv --out /var/backups/mongobackups/`date +"%m-%d-%y"`
+0 0 * * * mongodump --username DB_USERNAME --password DB_PASSWORD --db DB_NAME --out /var/backups/mongobackups/`date +"%m-%d-%y"`
 ```
 
 ### Delete all the backups older than 7 days you can use the following bash command:
@@ -41,7 +41,7 @@ sudo crontab -e
 
 # Restoring and Migrating a MongoDB Database
 ```
-sudo mongorestore --username DB_USERNAME --password DB_PASSWORD --db nhancv --drop /var/backups/mongobackups/10-09-20/nhancv/
+sudo mongorestore --username DB_USERNAME --password DB_PASSWORD --db DB_NAME --drop /var/backups/mongobackups/`date +"%m-%d-%y"`/DB_NAME/
 ```
 
 
