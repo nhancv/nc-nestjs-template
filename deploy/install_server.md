@@ -93,7 +93,7 @@ mongo
 > use admin;
 > db.createUser({
       user: "admin",
-      pwd: "ADMIN_PASSWORD_HERE",
+      pwd: "ADMIN_PASSWORD",
       roles: [
                 { role: "userAdminAnyDatabase", db: "admin" },
                 { role: "readWriteAnyDatabase", db: "admin" },
@@ -101,14 +101,14 @@ mongo
              ]
   });
 
-> use nhancv;
+> use DB_NAME;
 > db.createUser({
-      user: "u_nhancv",
-      pwd: "DB_PASSWORD_HERE",
+      user: "DB_USERNAME",
+      pwd: "DB_PASSWORD",
       roles: [
-                { role: "userAdmin", db: "nhancv" },
-                { role: "dbAdmin",   db: "nhancv" },
-                { role: "readWrite", db: "nhancv" }
+                { role: "userAdmin", db: "DB_NAME" },
+                { role: "dbAdmin",   db: "DB_NAME" },
+                { role: "readWrite", db: "DB_NAME" }
              ]
   });
 ```
@@ -137,7 +137,7 @@ sudo service mongod status
 
 - Test connection
 ```
-mongo -u u_nhancv -p DB_PASSWORD_HERE 127.0.0.1/nhancv
+mongo -u DB_USERNAME -p DB_PASSWORD 127.0.0.1/DB_NAME
 ```
 
 ## (OPTIONAL FOR DOMAIN)
