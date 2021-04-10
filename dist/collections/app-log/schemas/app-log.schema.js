@@ -53,16 +53,16 @@ __decorate([
 __decorate([
     mongoose_1.Prop({ type: Date, default: Date.now }),
     swagger_1.ApiProperty(),
-    __metadata("design:type", Number)
+    __metadata("design:type", Date)
 ], AppLog.prototype, "createdAt", void 0);
 __decorate([
     mongoose_1.Prop({ type: Date, default: Date.now }),
     swagger_1.ApiProperty(),
-    __metadata("design:type", Number)
+    __metadata("design:type", Date)
 ], AppLog.prototype, "updatedAt", void 0);
 AppLog = __decorate([
     mongoose_1.Schema(),
-    __metadata("design:paramtypes", [Object, String, String, String, String, String, Number, Number])
+    __metadata("design:paramtypes", [Object, String, String, String, String, String, Date, Date])
 ], AppLog);
 exports.AppLog = AppLog;
 exports.AppLogSchema = mongoose_1.SchemaFactory.createForClass(AppLog);

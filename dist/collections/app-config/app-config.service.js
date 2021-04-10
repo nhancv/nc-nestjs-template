@@ -11,6 +11,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 var AppConfigService_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppConfigService = void 0;
@@ -18,6 +21,7 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const app_config_schema_1 = require("./schemas/app-config.schema");
+const moment_1 = __importDefault(require("moment"));
 let AppConfigService = AppConfigService_1 = class AppConfigService {
     constructor(connection, appConfigModel) {
         this.connection = connection;
@@ -28,7 +32,7 @@ let AppConfigService = AppConfigService_1 = class AppConfigService {
         return this.appConfigModel.findOne().exec();
     }
     async putAppConfig(appConfigDto) {
-        await this.appConfigModel.updateOne({}, Object.assign(Object.assign({}, appConfigDto), { updatedAt: Date.now() }), { upsert: true });
+        await this.appConfigModel.updateOne({}, Object.assign(Object.assign({}, appConfigDto), { updatedAt: moment_1.default().toDate() }), { upsert: true });
         return this.getAppConfig();
     }
 };

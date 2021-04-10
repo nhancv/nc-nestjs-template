@@ -23,7 +23,7 @@ class CreateAppLogDto {
 }
 __decorate([
     class_validator_1.IsNotEmpty(),
-    swagger_1.ApiProperty(),
+    swagger_1.ApiProperty({ description: 'Log type', example: 'app' }),
     __metadata("design:type", String)
 ], CreateAppLogDto.prototype, "type", void 0);
 __decorate([
