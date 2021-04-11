@@ -12,12 +12,12 @@ fullName?
 
 ### Api
 ```
-GET     /users/search
-GET     /users
-GET     /users/{uid}
-POST    /users
-PUT     /users
-DELETE  /users
+GET     /api/users/search
+GET     /api/users
+POST    /api/users
+PUT     /api/users
+DELETE  /api/users
+GET     /api/users/{uid}
 ```
 
 ## Admin
@@ -30,11 +30,11 @@ role      : default is admin
 
 ### Api
 ```
-GET     /admins
-GET     /admins/all
-POST    /admins
-PUT     /admins
-DELETE  /admins/{uid}
+GET     /api/admins
+POST    /api/admins
+PUT     /api/admins
+GET     /api/admins/all
+DELETE  /api/admins/{uid}
 ```
 
 ## Auth token
@@ -49,7 +49,7 @@ duration
 
 ### Api
 ```
-
+POST    /api/auth/login
 ```
 
 ## Others
