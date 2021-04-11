@@ -4,6 +4,9 @@ import {AppConfigService} from "../../collections/app-config/app-config.service"
 import {AppConfig} from "../../collections/app-config/schemas/app-config.schema";
 import {MigrationService1_0_0} from "./migration.service.1_0_0";
 import {Document} from "mongoose";
+import {ROLE_OWNER} from "../../collections/admins/dto/admin.roles";
+import {AdminsService} from "../../collections/admins/admins.service";
+import {UsersService} from "../../collections/users/users.service";
 
 @Injectable()
 export class MigrationService {
@@ -12,6 +15,8 @@ export class MigrationService {
   constructor(
     private readonly configService: ConfigService,
     private readonly appConfigService: AppConfigService,
+    private readonly usersService: UsersService,
+    private readonly adminsService: AdminsService,
     private readonly migrateService1_0_0: MigrationService1_0_0,
   ) {
   }
@@ -60,6 +65,8 @@ export class MigrationService {
   }
 
   async migrate(): Promise<void> {
+    // Init collection
+    await this.initAdminCollection();
     // Init app config version
     const appConfig = await this.initAppConfigCollection();
 
@@ -100,4 +107,26 @@ export class MigrationService {
     return appConfig;
   }
 
+  async initAdminCollection(): Promise<void> {
+    // Init user
+    const isUserEmpty = await this.usersService.isEmpty();
+    if (isUserEmpty) {
+      const user = await this.usersService.createUser({
+        username: 'admin',
+        password: 'admin',
+        fullName: 'Admin',
+      });
+      if (user) {
+        // Init admin collection
+        const isAdminEmpty = await this.adminsService.isEmpty();
+        if (isAdminEmpty) {
+          await this.adminsService.createAdmin({
+            role: ROLE_OWNER, uid: user.uid,
+          });
+        }
+      }
+
+    }
+
+  }
 }

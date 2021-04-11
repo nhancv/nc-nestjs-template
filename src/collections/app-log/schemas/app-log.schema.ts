@@ -5,32 +5,32 @@ import {ApiProperty} from "@nestjs/swagger";
 @Schema()
 export class AppLog extends Document {
 
-  @Prop({required: true})
   @ApiProperty()
+  @Prop({required: true})
   type: string;
 
-  @Prop({required: true})
   @ApiProperty()
+  @Prop({required: true})
   message: string;
 
-  @Prop()
   @ApiProperty()
+  @Prop()
   index1?: string;
 
-  @Prop()
   @ApiProperty()
+  @Prop()
   index2?: string;
 
-  @Prop()
   @ApiProperty()
+  @Prop()
   index3?: string;
 
-  @Prop({type: Date, default: Date.now})
   @ApiProperty()
+  @Prop({type: Date, default: Date.now})
   createdAt: Date;
 
-  @Prop({type: Date, default: Date.now})
   @ApiProperty()
+  @Prop({type: Date, default: Date.now})
   updatedAt: Date;
 
   constructor(doc: any, type: string, message: string, index1: string, index2: string, index3: string, createdAt: Date, updatedAt: Date) {

@@ -23,23 +23,23 @@ let AppConfig = class AppConfig extends mongoose_2.Document {
     }
 };
 __decorate([
-    mongoose_1.Prop({ required: true }),
     swagger_1.ApiProperty(),
+    mongoose_1.Prop({ required: true, unique: true }),
     __metadata("design:type", String)
 ], AppConfig.prototype, "version", void 0);
 __decorate([
-    mongoose_1.Prop({ required: true }),
     swagger_1.ApiProperty(),
+    mongoose_1.Prop({ required: true }),
     __metadata("design:type", Boolean)
 ], AppConfig.prototype, "maintenance", void 0);
 __decorate([
-    mongoose_1.Prop({ type: Date, default: Date.now }),
     swagger_1.ApiProperty(),
+    mongoose_1.Prop({ type: Date, default: Date.now }),
     __metadata("design:type", Date)
 ], AppConfig.prototype, "createdAt", void 0);
 __decorate([
-    mongoose_1.Prop({ type: Date, default: Date.now }),
     swagger_1.ApiProperty(),
+    mongoose_1.Prop({ type: Date, default: Date.now }),
     __metadata("design:type", Date)
 ], AppConfig.prototype, "updatedAt", void 0);
 AppConfig = __decorate([

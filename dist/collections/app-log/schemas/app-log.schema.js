@@ -26,38 +26,38 @@ let AppLog = class AppLog extends mongoose_2.Document {
     }
 };
 __decorate([
-    mongoose_1.Prop({ required: true }),
     swagger_1.ApiProperty(),
+    mongoose_1.Prop({ required: true }),
     __metadata("design:type", String)
 ], AppLog.prototype, "type", void 0);
 __decorate([
-    mongoose_1.Prop({ required: true }),
     swagger_1.ApiProperty(),
+    mongoose_1.Prop({ required: true }),
     __metadata("design:type", String)
 ], AppLog.prototype, "message", void 0);
 __decorate([
-    mongoose_1.Prop(),
     swagger_1.ApiProperty(),
+    mongoose_1.Prop(),
     __metadata("design:type", String)
 ], AppLog.prototype, "index1", void 0);
 __decorate([
-    mongoose_1.Prop(),
     swagger_1.ApiProperty(),
+    mongoose_1.Prop(),
     __metadata("design:type", String)
 ], AppLog.prototype, "index2", void 0);
 __decorate([
-    mongoose_1.Prop(),
     swagger_1.ApiProperty(),
+    mongoose_1.Prop(),
     __metadata("design:type", String)
 ], AppLog.prototype, "index3", void 0);
 __decorate([
-    mongoose_1.Prop({ type: Date, default: Date.now }),
     swagger_1.ApiProperty(),
+    mongoose_1.Prop({ type: Date, default: Date.now }),
     __metadata("design:type", Date)
 ], AppLog.prototype, "createdAt", void 0);
 __decorate([
-    mongoose_1.Prop({ type: Date, default: Date.now }),
     swagger_1.ApiProperty(),
+    mongoose_1.Prop({ type: Date, default: Date.now }),
     __metadata("design:type", Date)
 ], AppLog.prototype, "updatedAt", void 0);
 AppLog = __decorate([

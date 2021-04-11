@@ -4,20 +4,20 @@ import {ApiProperty} from "@nestjs/swagger";
 
 @Schema()
 export class AppConfig extends Document {
-  @Prop({required: true})
   @ApiProperty()
+  @Prop({required: true, unique: true})
   version: string;
 
-  @Prop({required: true})
   @ApiProperty()
+  @Prop({required: true})
   maintenance: boolean;
 
-  @Prop({type: Date, default: Date.now})
   @ApiProperty()
+  @Prop({type: Date, default: Date.now})
   createdAt: Date;
 
-  @Prop({type: Date, default: Date.now})
   @ApiProperty()
+  @Prop({type: Date, default: Date.now})
   updatedAt: Date;
 
   constructor(version: string, maintenance: boolean, createdAt: Date, updatedAt: Date) {

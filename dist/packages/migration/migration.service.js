@@ -15,10 +15,15 @@ const common_1 = require("@nestjs/common");
 const config_1 = require("@nestjs/config");
 const app_config_service_1 = require("../../collections/app-config/app-config.service");
 const migration_service_1_0_0_1 = require("./migration.service.1_0_0");
+const admin_roles_1 = require("../../collections/admins/dto/admin.roles");
+const admins_service_1 = require("../../collections/admins/admins.service");
+const users_service_1 = require("../../collections/users/users.service");
 let MigrationService = MigrationService_1 = class MigrationService {
-    constructor(configService, appConfigService, migrateService1_0_0) {
+    constructor(configService, appConfigService, usersService, adminsService, migrateService1_0_0) {
         this.configService = configService;
         this.appConfigService = appConfigService;
+        this.usersService = usersService;
+        this.adminsService = adminsService;
         this.migrateService1_0_0 = migrateService1_0_0;
         this.logger = new common_1.Logger(MigrationService_1.name);
     }
@@ -61,6 +66,7 @@ let MigrationService = MigrationService_1 = class MigrationService {
         return;
     }
     async migrate() {
+        await this.initAdminCollection();
         const appConfig = await this.initAppConfigCollection();
         if (appConfig) {
             const currentAppVersion = appConfig.version;
@@ -87,11 +93,31 @@ let MigrationService = MigrationService_1 = class MigrationService {
         }
         return appConfig;
     }
+    async initAdminCollection() {
+        const isUserEmpty = await this.usersService.isEmpty();
+        if (isUserEmpty) {
+            const user = await this.usersService.createUser({
+                username: 'admin',
+                password: 'admin',
+                fullName: 'Admin',
+            });
+            if (user) {
+                const isAdminEmpty = await this.adminsService.isEmpty();
+                if (isAdminEmpty) {
+                    await this.adminsService.createAdmin({
+                        role: admin_roles_1.ROLE_OWNER, uid: user.uid,
+                    });
+                }
+            }
+        }
+    }
 };
 MigrationService = MigrationService_1 = __decorate([
     common_1.Injectable(),
     __metadata("design:paramtypes", [config_1.ConfigService,
         app_config_service_1.AppConfigService,
+        users_service_1.UsersService,
+        admins_service_1.AdminsService,
         migration_service_1_0_0_1.MigrationService1_0_0])
 ], MigrationService);
 exports.MigrationService = MigrationService;

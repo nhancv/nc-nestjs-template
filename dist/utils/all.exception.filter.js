@@ -40,7 +40,7 @@ let AllExceptionFilter = AllExceptionFilter_1 = class AllExceptionFilter {
                 message: errorMessage,
             }
         };
-        this.logger.error(new app_exception_1.AppException('catch:46', error));
+        this.logger.error(JSON.stringify(new app_exception_1.AppException('catch:46', error)));
         response.status(status).json(error);
     }
 };

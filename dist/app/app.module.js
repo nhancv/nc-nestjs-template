@@ -19,6 +19,13 @@ const app_config_module_1 = require("../collections/app-config/app-config.module
 const migration_module_1 = require("../packages/migration/migration.module");
 const mongoose_1 = require("@nestjs/mongoose");
 const schedule_1 = require("@nestjs/schedule");
+const in_memory_db_1 = require("@nestjs-addons/in-memory-db");
+const users_module_1 = require("../collections/users/users.module");
+const auth_module_1 = require("../collections/auth/auth.module");
+const admins_module_1 = require("../collections/admins/admins.module");
+const realtime_module_1 = require("../packages/realtime/realtime.module");
+const cron_service_1 = require("../packages/cron/cron.service");
+const throttler_1 = require("@nestjs/throttler");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -29,14 +36,26 @@ AppModule = __decorate([
                 rootPath: path_1.join(__dirname, '..', '..', 'public'),
                 exclude: ['/api*'],
             }),
-            mongoose_1.MongooseModule.forRoot((_a = process.env.MONGODB_URL) !== null && _a !== void 0 ? _a : ''),
+            mongoose_1.MongooseModule.forRoot((_a = process.env.MONGODB_URL) !== null && _a !== void 0 ? _a : '', {
+                useNewUrlParser: true,
+                useCreateIndex: true,
+            }),
+            in_memory_db_1.InMemoryDBModule.forRoot(),
             schedule_1.ScheduleModule.forRoot(),
+            throttler_1.ThrottlerModule.forRoot({
+                ttl: 60,
+                limit: 10,
+            }),
             migration_module_1.MigrationModule,
             app_config_module_1.AppConfigModule,
             app_log_module_1.AppLogModule,
+            auth_module_1.AuthModule,
+            admins_module_1.AdminsModule,
+            users_module_1.UsersModule,
+            realtime_module_1.RealtimeModule,
         ],
         controllers: [app_controller_1.AppController],
-        providers: [app_service_1.AppService],
+        providers: [app_service_1.AppService, cron_service_1.CronService],
     })
 ], AppModule);
 exports.AppModule = AppModule;

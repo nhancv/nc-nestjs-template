@@ -1,0 +1,1 @@
+{"version":3,"file":"full-user.dto.js","sourceRoot":"","sources":["../../../../src/collections/users/dto/full-user.dto.ts"],"names":[],"mappings":";;;AAAA,uDAAgD;AAEhD,MAAa,WAAY,SAAQ,+BAAa;IAI5C,YAAY,QAAgB,EAAE,QAAgB,EAAE,QAAgB,EAAE,GAAW;QAC3E,KAAK,CAAC,QAAQ,EAAE,QAAQ,EAAE,QAAQ,CAAC,CAAC;QACpC,IAAI,CAAC,GAAG,GAAG,GAAG,CAAC;IACjB,CAAC;CACF;AARD,kCAQC"}

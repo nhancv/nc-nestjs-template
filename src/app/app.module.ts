@@ -9,6 +9,13 @@ import {AppConfigModule} from "../collections/app-config/app-config.module";
 import {MigrationModule} from "../packages/migration/migration.module";
 import {MongooseModule} from "@nestjs/mongoose";
 import {ScheduleModule} from "@nestjs/schedule";
+import {InMemoryDBModule} from "@nestjs-addons/in-memory-db";
+import {UsersModule} from "../collections/users/users.module";
+import {AuthModule} from "../collections/auth/auth.module";
+import {AdminsModule} from "../collections/admins/admins.module";
+import {RealtimeModule} from "../packages/realtime/realtime.module";
+import {CronService} from "../packages/cron/cron.service";
+import {ThrottlerModule} from "@nestjs/throttler";
 
 @Module({
   imports: [
@@ -17,14 +24,27 @@ import {ScheduleModule} from "@nestjs/schedule";
       rootPath: join(__dirname, '..', '..', 'public'),
       exclude: ['/api*'],
     }),
-    MongooseModule.forRoot(process.env.MONGODB_URL ?? ''),
+    MongooseModule.forRoot(process.env.MONGODB_URL ?? '', {
+      useNewUrlParser: true,
+      useCreateIndex: true,
+    }),
+    InMemoryDBModule.forRoot(),
     ScheduleModule.forRoot(),
+    // https://docs.nestjs.com/security/rate-limiting
+    ThrottlerModule.forRoot({
+      ttl: 60,
+      limit: 10,
+    }),
     MigrationModule,
     AppConfigModule,
     AppLogModule,
+    AuthModule,
+    AdminsModule,
+    UsersModule,
+    RealtimeModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, CronService],
 })
 export class AppModule {
 }

@@ -25,7 +25,7 @@ export class AllExceptionFilter implements ExceptionFilter {
         ? exception.getStatus()
         : HttpStatus.INTERNAL_SERVER_ERROR;
 
-    let errorMessage: string = 'Internal server error';
+    let errorMessage = 'Internal server error';
     if (exception instanceof BadRequestException) {
       const exceptionRes = exception.getResponse();
       if (exceptionRes.hasOwnProperty('message')) {
@@ -43,7 +43,7 @@ export class AllExceptionFilter implements ExceptionFilter {
         message: errorMessage,
       }
     }
-    this.logger.error(new AppException('catch:46', error));
+    this.logger.error(JSON.stringify(new AppException('catch:46', error)));
     response.status(status).json(error);
   }
 }
