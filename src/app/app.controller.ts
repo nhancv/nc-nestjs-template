@@ -9,12 +9,12 @@ export class AppController {
   constructor(private readonly appService: AppService) {
   }
 
-  @Get()
   @ApiOkResponse({
     description: 'Test app works',
     type: String,
   })
   @ApiOperation({summary: 'hello'})
+  @Get()
   getHello(): BaseResponse<string> {
     const response: BaseResponse<string> = {}
     response.data = this.appService.getHello();

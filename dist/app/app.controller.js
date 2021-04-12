@@ -24,12 +24,12 @@ let AppController = class AppController {
     }
 };
 __decorate([
-    common_1.Get(),
     swagger_1.ApiOkResponse({
         description: 'Test app works',
         type: String,
     }),
     swagger_1.ApiOperation({ summary: 'hello' }),
+    common_1.Get(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Object)

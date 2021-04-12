@@ -65,7 +65,7 @@ export class AuthService {
   }
 
   // Get tokens by Uid
-  async getAuthTokensByUid(uid: string): Promise<AuthToken[] | null> {
+  async getAuthTokensByUid(uid: string): Promise<AuthToken[]> {
     return await this.accessTokenModel.find({uid: uid}, {'_id': 0, '__v': 0}).exec();
   }
 

@@ -47,8 +47,8 @@ export class UsersController {
     @Query('input') input: string,
     @Query('from') from: number,
     @Query('to') to: number,
-    @AuthJwt() payload: JwtPayload): Promise<BaseResponse<User[] | null>> {
-    const response: BaseResponse<User[] | null> = {}
+    @AuthJwt() payload: JwtPayload): Promise<BaseResponse<User[]>> {
+    const response: BaseResponse<User[]> = {}
     response.data = await this.usersService.getUsers(input, from, to);
     return response;
   }

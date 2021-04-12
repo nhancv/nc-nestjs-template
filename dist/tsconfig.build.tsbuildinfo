@@ -1597,7 +1597,7 @@
         "affectsGlobalScope": false
       },
       "../src/app/app.controller.ts": {
-        "version": "47fbabb8070b73031e5a9809ead3570cf9f6d34de3f307e6207a40d5fac365b9",
+        "version": "898f1d618bd23b42679f0fcf442d5ce9bbcb277f46c5d9e823eb29a6487296cd",
         "signature": "d760189d8445292aa7976d2ac356beeb423fff297d39f0482690c7cae50b9ae5",
         "affectsGlobalScope": false
       },
@@ -2632,8 +2632,8 @@
         "affectsGlobalScope": false
       },
       "../src/collections/app-log/app-log.service.ts": {
-        "version": "5701c56b8ef17cf52094ab1e45eb9740eed189b23cea9a44c2e77c8d3adb6b51",
-        "signature": "320b403e2ad75687745b320d808c6cad09640b682cd5531ab34ae4143332d103",
+        "version": "902f44ad6ae86ab5d8d1faa8de1a86dac3794b13e6b95538acb4f55388c0c956",
+        "signature": "8b9f02e5998c3a3bf32af852486a2b8da6d7e3dea71d9f42b29593318e26a8f0",
         "affectsGlobalScope": false
       },
       "../src/collections/app-log/app-log.module.ts": {
@@ -2932,13 +2932,13 @@
         "affectsGlobalScope": false
       },
       "../src/collections/auth/auth.service.ts": {
-        "version": "5c72bdd14a02c6520195aa9697f2a273eb68ceb9a737b8e85ce1991cf6372a56",
-        "signature": "92b3ba998c1eddc24bce51ad91b1a8037986856696bcd548a6d6543be7d7bac7",
+        "version": "6e30958280a32ff16d64a6d07371cc8a310c16957e3a36bbef2b9c70d3222949",
+        "signature": "6d9315ce35e4171b7cdbebb194151f76c39222d453eb165c9ef8d2b15fd8a5ab",
         "affectsGlobalScope": false
       },
       "../src/collections/users/users.controller.ts": {
-        "version": "90d6c697e19e18bff8c5a15788798eb0d4d57fd234b0c56dbc3b85bfc48e2321",
-        "signature": "aa2610d21eaef45ae97be7078eb1a847d12bb1e2554dcda7a0e0faef9e4b087c",
+        "version": "06dbf619a20162eab1bbd135dd783f996f3c8d5e714eb7fe72f903f145306dbd",
+        "signature": "d1eca85de520e4da6edf94e4472219ee140a197fecdcea106c0fdee3ce9002c0",
         "affectsGlobalScope": false
       },
       "../node_modules/@types/passport-strategy/index.d.ts": {

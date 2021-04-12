@@ -14,12 +14,12 @@ export class AppLogService {
   }
 
   // Find app log by type
-  async findAppLogs(type: string): Promise<AppLog[] | null> {
+  async findAppLogs(type: string): Promise<AppLog[]> {
     return await this.appLogModel.find({type: type}, {'__v': 0}).exec();
   }
 
   // Find app log by custom filter
-  async findAppLogsByFilter(filter: any): Promise<AppLog[] | null> {
+  async findAppLogsByFilter(filter: any): Promise<AppLog[]> {
     return await this.appLogModel.find(filter, {'__v': 0}).exec();
   }
 
