@@ -19,6 +19,7 @@ async function bootstrap() {
   morgan.token('date', (req, res, tz) => moment().utc().utcOffset("+0700").format());
   const morganFormat = '[:date] :method :url :status - :response-time ms :user-agent';
   app.use(morgan(morganFormat));
+  app.enableCors();
   app.setGlobalPrefix('api');
   app.useGlobalFilters(new AllExceptionFilter());
   app.useGlobalPipes(new ValidationPipe());
