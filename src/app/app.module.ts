@@ -4,6 +4,7 @@ import {AppController} from './app.controller';
 import {AppService} from './app.service';
 import {ServeStaticModule} from "@nestjs/serve-static";
 import {join} from 'path';
+import {ThrottlerModule} from "@nestjs/throttler";
 
 @Module({
   imports: [
@@ -12,6 +13,8 @@ import {join} from 'path';
       rootPath: join(__dirname, '..', '..', 'public'),
       exclude: ['/api*'],
     }),
+    // https://docs.nestjs.com/security/rate-limiting
+    ThrottlerModule.forRoot({ttl: 60, limit: 20}),
   ],
   controllers: [AppController],
   providers: [AppService],

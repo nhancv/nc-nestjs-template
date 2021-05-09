@@ -5,10 +5,11 @@ import {Logger, ValidationPipe} from "@nestjs/common";
 import {DocumentBuilder, SwaggerModule} from "@nestjs/swagger";
 import morgan from 'morgan';
 import moment from 'moment';
+import {NestExpressApplication} from "@nestjs/platform-express";
 
 async function bootstrap() {
   const logger = new Logger('main');
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
   // //------Standalone Applications------//
   // // https://docs.nestjs.com/standalone-applications
   // // Application logic......
@@ -16,6 +17,12 @@ async function bootstrap() {
   // logger.log(appService.getHello());
 
   //------Web Applications------//
+  // For nginx proxy forward
+  // => update nginx.conf
+  // proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  // proxy_set_header X-Real-IP $remote_addr;
+  // proxy_set_header Host $host;
+  app.set('trust proxy', 'loopback');
   morgan.token('date', (req, res, tz) => moment().utc().utcOffset("+0700").format());
   const morganFormat = ':remote-addr - :remote-user [:date] :method :url :status - :response-time ms :user-agent';
   app.use(morgan(morganFormat));
