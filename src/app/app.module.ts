@@ -1,5 +1,5 @@
 import {Module} from '@nestjs/common';
-import {ConfigModule} from '@nestjs/config';
+import {ConfigModule, ConfigService} from '@nestjs/config';
 import {AppController} from './app.controller';
 import {AppService} from './app.service';
 import {ServeStaticModule} from "@nestjs/serve-static";
@@ -15,7 +15,15 @@ import {APP_GUARD} from "@nestjs/core";
       exclude: ['/api*'],
     }),
     // https://docs.nestjs.com/security/rate-limiting
-    ThrottlerModule.forRoot({ttl: 60, limit: 10}),
+    // https://github.com/nestjs/throttler
+    ThrottlerModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => ({
+        ttl: config.get('THROTTLE_TTL', 60),
+        limit: config.get('THROTTLE_LIMIT', 10),
+      }),
+    }),
   ],
   controllers: [AppController],
   providers: [

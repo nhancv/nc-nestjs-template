@@ -43,7 +43,7 @@ export class AllExceptionFilter implements ExceptionFilter {
         message: errorMessage,
       }
     }
-    this.logger.error(new AppException('catch:46', error));
+    this.logger.error(JSON.stringify(new AppException('catch:46', error)));
     response.status(status).json(error);
   }
 }

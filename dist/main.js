@@ -14,9 +14,11 @@ async function bootstrap() {
     var _a;
     const logger = new common_1.Logger('main');
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
+    app.set('trust proxy', 'loopback');
     morgan_1.default.token('date', (req, res, tz) => moment_1.default().utc().utcOffset("+0700").format());
-    const morganFormat = '[:date] :method :url :status - :response-time ms :user-agent';
+    const morganFormat = ':remote-addr - :remote-user [:date] :method :url :status - :response-time ms :user-agent';
     app.use(morgan_1.default(morganFormat));
+    app.enableCors();
     app.setGlobalPrefix('api');
     app.useGlobalFilters(new all_exception_filter_1.AllExceptionFilter());
     app.useGlobalPipes(new common_1.ValidationPipe());
