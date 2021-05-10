@@ -42,10 +42,7 @@ AppModule = __decorate([
             }),
             in_memory_db_1.InMemoryDBModule.forRoot(),
             schedule_1.ScheduleModule.forRoot(),
-            throttler_1.ThrottlerModule.forRoot({
-                ttl: 60,
-                limit: 10,
-            }),
+            throttler_1.ThrottlerModule.forRoot({ ttl: 60, limit: 1, }),
             migration_module_1.MigrationModule,
             app_config_module_1.AppConfigModule,
             app_log_module_1.AppLogModule,

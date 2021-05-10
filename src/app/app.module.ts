@@ -31,10 +31,7 @@ import {ThrottlerModule} from "@nestjs/throttler";
     InMemoryDBModule.forRoot(),
     ScheduleModule.forRoot(),
     // https://docs.nestjs.com/security/rate-limiting
-    ThrottlerModule.forRoot({
-      ttl: 60,
-      limit: 10,
-    }),
+    ThrottlerModule.forRoot({ttl: 60, limit: 5,}),
     MigrationModule,
     AppConfigModule,
     AppLogModule,
