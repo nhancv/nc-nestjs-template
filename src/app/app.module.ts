@@ -4,7 +4,8 @@ import {AppController} from './app.controller';
 import {AppService} from './app.service';
 import {ServeStaticModule} from "@nestjs/serve-static";
 import {join} from 'path';
-import {ThrottlerModule} from "@nestjs/throttler";
+import {ThrottlerGuard, ThrottlerModule} from "@nestjs/throttler";
+import {APP_GUARD} from "@nestjs/core";
 
 @Module({
   imports: [
@@ -14,10 +15,16 @@ import {ThrottlerModule} from "@nestjs/throttler";
       exclude: ['/api*'],
     }),
     // https://docs.nestjs.com/security/rate-limiting
-    ThrottlerModule.forRoot({ttl: 60, limit: 20}),
+    ThrottlerModule.forRoot({ttl: 60, limit: 10}),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
+  ],
 })
 export class AppModule {
 }
