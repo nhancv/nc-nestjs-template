@@ -22,7 +22,7 @@ let CronService = CronService_1 = class CronService {
     }
 };
 __decorate([
-    schedule_1.Cron(schedule_1.CronExpression.EVERY_5_SECONDS),
+    schedule_1.Cron(schedule_1.CronExpression.EVERY_DAY_AT_MIDNIGHT),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)

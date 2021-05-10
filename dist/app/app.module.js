@@ -43,7 +43,14 @@ AppModule = __decorate([
             }),
             in_memory_db_1.InMemoryDBModule.forRoot(),
             schedule_1.ScheduleModule.forRoot(),
-            throttler_1.ThrottlerModule.forRoot({ ttl: 60, limit: 10 }),
+            throttler_1.ThrottlerModule.forRootAsync({
+                imports: [config_1.ConfigModule],
+                inject: [config_1.ConfigService],
+                useFactory: (config) => ({
+                    ttl: config.get('THROTTLE_TTL', 60),
+                    limit: config.get('THROTTLE_LIMIT', 10),
+                }),
+            }),
             migration_module_1.MigrationModule,
             app_config_module_1.AppConfigModule,
             app_log_module_1.AppLogModule,

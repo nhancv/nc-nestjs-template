@@ -1,5 +1,5 @@
 import {Module} from '@nestjs/common';
-import {ConfigModule} from '@nestjs/config';
+import {ConfigModule, ConfigService} from '@nestjs/config';
 import {AppController} from './app.controller';
 import {AppService} from './app.service';
 import {ServeStaticModule} from "@nestjs/serve-static";
@@ -14,7 +14,6 @@ import {UsersModule} from "../collections/users/users.module";
 import {AuthModule} from "../collections/auth/auth.module";
 import {AdminsModule} from "../collections/admins/admins.module";
 import {RealtimeModule} from "../packages/realtime/realtime.module";
-import {CronService} from "../packages/cron/cron.service";
 import {ThrottlerGuard, ThrottlerModule} from "@nestjs/throttler";
 import {APP_GUARD} from "@nestjs/core";
 import {CronModule} from "../packages/cron/cron.module";
@@ -33,7 +32,15 @@ import {CronModule} from "../packages/cron/cron.module";
     InMemoryDBModule.forRoot(),
     ScheduleModule.forRoot(),
     // https://docs.nestjs.com/security/rate-limiting
-    ThrottlerModule.forRoot({ttl: 60, limit: 10}),
+    // https://github.com/nestjs/throttler
+    ThrottlerModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => ({
+        ttl: config.get('THROTTLE_TTL', 60),
+        limit: config.get('THROTTLE_LIMIT', 10),
+      }),
+    }),
     MigrationModule,
     AppConfigModule,
     AppLogModule,

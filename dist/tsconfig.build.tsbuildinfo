@@ -3331,11 +3331,6 @@
         "signature": "413c9ef0c4cb9d2358242237cff760cfc59c4f19ee84233688f97786649c14ff",
         "affectsGlobalScope": false
       },
-      "../src/packages/cron/cron.service.ts": {
-        "version": "1c5e4ba0b6204f8dbef5fe34d460fcc1f2cc46d0937dda4d77d6949b2ad8ae1b",
-        "signature": "6d99f9879183504e22712f0071422f051ca28b414cb18b42647775f62a49d284",
-        "affectsGlobalScope": false
-      },
       "../node_modules/@nestjs/throttler/dist/throttler-module-options.interface.d.ts": {
         "version": "97da896dd84b1eb71f6e8c5df98183c810090bbf6f229482a80294b8070386cd",
         "signature": "97da896dd84b1eb71f6e8c5df98183c810090bbf6f229482a80294b8070386cd",
@@ -3381,13 +3376,18 @@
         "signature": "f7b3abf909345fc509b09ef3b4a2f7a96e13fa0a68f2a6b630e663ff92414a65",
         "affectsGlobalScope": false
       },
+      "../src/packages/cron/cron.service.ts": {
+        "version": "79ff3f554a291218c35553c47fc417e3508cd40c025bc5ac8ba67c3545146c97",
+        "signature": "6d99f9879183504e22712f0071422f051ca28b414cb18b42647775f62a49d284",
+        "affectsGlobalScope": false
+      },
       "../src/packages/cron/cron.module.ts": {
         "version": "f109d327f323f65428e6d48a51b6e41824260afb886244c7f268eeffae0d7135",
         "signature": "acf2fe2d3b5df92a6a0c12528050dc767be3af49c91167e6febd04c914102bda",
         "affectsGlobalScope": false
       },
       "../src/app/app.module.ts": {
-        "version": "31ffa87d222cb3f9b37d6cdc92f6eb97248a114622a3d1a766de18efad51cd6a",
+        "version": "c8294bb2ced5965c14d59968897847b7ce25121a2090d06b738fe5abb3060d82",
         "signature": "b82491e2990291580288c5602d4c017238977749d52b17391f0e45d9a29be644",
         "affectsGlobalScope": false
       },
@@ -5887,7 +5887,6 @@
         "../src/collections/auth/auth.module.ts",
         "../src/collections/users/users.module.ts",
         "../src/packages/cron/cron.module.ts",
-        "../src/packages/cron/cron.service.ts",
         "../src/packages/migration/migration.module.ts",
         "../src/packages/realtime/realtime.module.ts"
       ],
