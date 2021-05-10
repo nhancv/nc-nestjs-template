@@ -15,7 +15,9 @@ import {AuthModule} from "../collections/auth/auth.module";
 import {AdminsModule} from "../collections/admins/admins.module";
 import {RealtimeModule} from "../packages/realtime/realtime.module";
 import {CronService} from "../packages/cron/cron.service";
-import {ThrottlerModule} from "@nestjs/throttler";
+import {ThrottlerGuard, ThrottlerModule} from "@nestjs/throttler";
+import {APP_GUARD} from "@nestjs/core";
+import {CronModule} from "../packages/cron/cron.module";
 
 @Module({
   imports: [
@@ -31,7 +33,7 @@ import {ThrottlerModule} from "@nestjs/throttler";
     InMemoryDBModule.forRoot(),
     ScheduleModule.forRoot(),
     // https://docs.nestjs.com/security/rate-limiting
-    ThrottlerModule.forRoot({ttl: 60, limit: 5,}),
+    ThrottlerModule.forRoot({ttl: 60, limit: 10}),
     MigrationModule,
     AppConfigModule,
     AppLogModule,
@@ -39,9 +41,15 @@ import {ThrottlerModule} from "@nestjs/throttler";
     AdminsModule,
     UsersModule,
     RealtimeModule,
+    CronModule,
   ],
   controllers: [AppController],
-  providers: [AppService, CronService],
+  providers: [AppService,
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
+  ],
 })
 export class AppModule {
 }

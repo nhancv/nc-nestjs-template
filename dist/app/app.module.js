@@ -24,8 +24,9 @@ const users_module_1 = require("../collections/users/users.module");
 const auth_module_1 = require("../collections/auth/auth.module");
 const admins_module_1 = require("../collections/admins/admins.module");
 const realtime_module_1 = require("../packages/realtime/realtime.module");
-const cron_service_1 = require("../packages/cron/cron.service");
 const throttler_1 = require("@nestjs/throttler");
+const core_1 = require("@nestjs/core");
+const cron_module_1 = require("../packages/cron/cron.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -42,7 +43,7 @@ AppModule = __decorate([
             }),
             in_memory_db_1.InMemoryDBModule.forRoot(),
             schedule_1.ScheduleModule.forRoot(),
-            throttler_1.ThrottlerModule.forRoot({ ttl: 60, limit: 1, }),
+            throttler_1.ThrottlerModule.forRoot({ ttl: 60, limit: 10 }),
             migration_module_1.MigrationModule,
             app_config_module_1.AppConfigModule,
             app_log_module_1.AppLogModule,
@@ -50,9 +51,15 @@ AppModule = __decorate([
             admins_module_1.AdminsModule,
             users_module_1.UsersModule,
             realtime_module_1.RealtimeModule,
+            cron_module_1.CronModule,
         ],
         controllers: [app_controller_1.AppController],
-        providers: [app_service_1.AppService, cron_service_1.CronService],
+        providers: [app_service_1.AppService,
+            {
+                provide: core_1.APP_GUARD,
+                useClass: throttler_1.ThrottlerGuard,
+            },
+        ],
     })
 ], AppModule);
 exports.AppModule = AppModule;
