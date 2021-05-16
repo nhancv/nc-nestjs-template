@@ -165,6 +165,10 @@ sudo apt install certbot python-certbot-nginx  -y
 sudo certbot --nginx
 
 * Select redirect all request to HTTPS, nginx will update domain config automatically
+
+--- Deal with error when add ppa:cerbot, try install nginx from source
+** Install certbot from source:
+curl -o- https://raw.githubusercontent.com/vinyll/certbot-install/master/install.sh | bash
 ```
 
 ## Prepare source
