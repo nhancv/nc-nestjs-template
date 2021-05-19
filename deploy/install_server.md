@@ -55,6 +55,30 @@ sudo apt install git -y
 curl -sL https://deb.nodesource.com/setup_15.x | sudo -E bash -
 sudo apt install -y nodejs
 
+** Note for conflict version 12.18.2~dfsg-1ubuntu2:
+Unpacking nodejs (15.14.0-deb-1nodesource1) over (12.18.2~dfsg-1ubuntu2) ...
+dpkg: error processing archive /var/cache/apt/archives/nodejs_15.14.0-deb-1nodesource1_amd64.deb (--unpack):
+ trying to overwrite '/usr/share/doc/nodejs/api/cli.json.gz', which is also in package nodejs-doc 12.18.2~dfsg-1ubuntu2
+dpkg-deb: error: paste subprocess was killed by signal (Broken pipe)
+Errors were encountered while processing:
+ /var/cache/apt/archives/nodejs_15.14.0-deb-1nodesource1_amd64.deb
+E: Sub-process /usr/bin/dpkg returned an error code (1)
+
+---> Solved:
+- Uninstall old version
+sudo apt-get purge -y nodejs npm
+sudo apt-get purge -y nodejs-legacy npm
+
+- Install required lib and upgrade:
+sudo apt install libnode72
+sudo apt update
+sudo apt upgrade
+
+- Install new version:
++ Read the cache apt node path from error, replace to below command:
+sudo dpkg -i --force-overwrite /var/cache/apt/archives/nodejs_15.14.0-deb-1nodesource1_amd64.deb
++ Re-install with command above
+
 # Install pm2
 sudo npm install pm2 -g
 pm2 install pm2-logrotate
