@@ -183,11 +183,15 @@ File: api.nhancv.com
 sudo apt update
 sudo apt install software-properties-common -y
 sudo add-apt-repository universe
+# [obsoleted]
 sudo add-apt-repository ppa:certbot/certbot
-#Ubuntu 20.04
+# Ubuntu 20.04
 sudo apt-add-repository -r ppa:certbot/certbot
 sudo apt update
+# [Obsoleted] For python2
 sudo apt install certbot python-certbot-nginx  -y
+# For python3
+sudo apt install certbot python3-certbot-nginx
 sudo certbot --nginx
 
 * Select redirect all request to HTTPS, nginx will update domain config automatically
