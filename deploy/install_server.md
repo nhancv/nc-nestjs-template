@@ -180,17 +180,18 @@ File: api.nhancv.com
 
 ## Setup SSL Https
 ```
+[OBSOLETED]
 sudo apt update
 sudo apt install software-properties-common -y
 sudo add-apt-repository universe
-# [obsoleted]
-sudo add-apt-repository ppa:certbot/certbot
+# Ubuntu > 20.04
+  sudo add-apt-repository ppa:certbot/certbot
 # Ubuntu 20.04
-sudo apt-add-repository -r ppa:certbot/certbot
+  sudo apt-add-repository -r ppa:certbot/certbot
 sudo apt update
-# [Obsoleted] For python2
 sudo apt install certbot python-certbot-nginx  -y
-# For python3
+
+[LATEST WAY]
 sudo apt install certbot python3-certbot-nginx
 sudo certbot --nginx
 
