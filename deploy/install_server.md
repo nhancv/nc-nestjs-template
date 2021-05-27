@@ -79,6 +79,9 @@ sudo apt upgrade
 sudo dpkg -i --force-overwrite /var/cache/apt/archives/nodejs_15.14.0-deb-1nodesource1_amd64.deb
 + Re-install with command above
 
+# [Optional] Install yarn
+sudo npm install --global yarn
+
 # Install pm2
 sudo npm install pm2 -g
 pm2 install pm2-logrotate
@@ -87,11 +90,15 @@ pm2 install pm2-logrotate
 ## Install MongoDB
 ```
 * Check linux version: lsb_release -a
-
-https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
-
-* Ubuntu 20.04 (Focal)
+sudo apt install wget
 wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
+
+* https://docs.mongodb.com/manual/tutorial/install-mongodb-on-debian/
+* Debian 10 "Buster"
+echo "deb http://repo.mongodb.org/apt/debian buster/mongodb-org/4.4 main" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
+
+* https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
+* Ubuntu 20.04 (Focal)
 echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
 
 sudo apt update
