@@ -191,7 +191,7 @@ File: api.nhancv.com
 sudo apt update
 sudo apt install software-properties-common -y
 sudo add-apt-repository universe
-# Ubuntu > 20.04
+# Ubuntu < 20.04
   sudo add-apt-repository ppa:certbot/certbot
 # Ubuntu 20.04
   sudo apt-add-repository -r ppa:certbot/certbot
