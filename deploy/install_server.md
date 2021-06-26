@@ -118,7 +118,7 @@ sudo service mongod start
 - Status: sudo systemctl status mongod
 ```
 
-- Setup db auth
+- Create `admin` account
 ```
 mongo
 > use admin;
