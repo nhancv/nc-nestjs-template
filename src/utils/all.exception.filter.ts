@@ -15,10 +15,10 @@ import {AppException} from "./app.exception";
 export class AllExceptionFilter implements ExceptionFilter {
   private readonly logger = new Logger(AllExceptionFilter.name);
 
-  catch(exception: unknown, host: ArgumentsHost) {
+  catch(exception: unknown, host: ArgumentsHost): any {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse();
-    const request = ctx.getRequest();
+    // const request = ctx.getRequest();
 
     const status =
       exception instanceof HttpException
