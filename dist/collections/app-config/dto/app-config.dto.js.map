@@ -1,1 +1,0 @@
-{"version":3,"file":"app-config.dto.js","sourceRoot":"","sources":["../../../../src/collections/app-config/dto/app-config.dto.ts"],"names":[],"mappings":";;;;;;;;;;;;AAAA,6CAA4C;AAE5C,MAAa,YAAY;IAOvB,YAAY,OAAe,EAAE,WAAoB;QAC/C,IAAI,CAAC,OAAO,GAAG,OAAO,CAAC;QACvB,IAAI,CAAC,WAAW,GAAG,WAAW,CAAC;IACjC,CAAC;CACF;AATC;IADC,qBAAW,EAAE;;6CACE;AAGhB;IADC,qBAAW,EAAE;;iDACO;AALvB,oCAWC"}

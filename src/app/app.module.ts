@@ -38,7 +38,7 @@ import {CronModule} from "../packages/cron/cron.module";
       inject: [ConfigService],
       useFactory: (config: ConfigService) => ({
         ttl: config.get('THROTTLE_TTL', 60),
-        limit: config.get('THROTTLE_LIMIT', 10),
+        limit: config.get('THROTTLE_LIMIT', 10000),
       }),
     }),
     MigrationModule,

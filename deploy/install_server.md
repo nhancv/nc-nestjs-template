@@ -52,8 +52,35 @@ sudo apt install git -y
 
 ## Setup nodejs
 ```
-curl -sL https://deb.nodesource.com/setup_15.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
 sudo apt install -y nodejs
+
+** Note for conflict version 12.18.2~dfsg-1ubuntu2:
+Unpacking nodejs (15.14.0-deb-1nodesource1) over (12.18.2~dfsg-1ubuntu2) ...
+dpkg: error processing archive /var/cache/apt/archives/nodejs_15.14.0-deb-1nodesource1_amd64.deb (--unpack):
+ trying to overwrite '/usr/share/doc/nodejs/api/cli.json.gz', which is also in package nodejs-doc 12.18.2~dfsg-1ubuntu2
+dpkg-deb: error: paste subprocess was killed by signal (Broken pipe)
+Errors were encountered while processing:
+ /var/cache/apt/archives/nodejs_15.14.0-deb-1nodesource1_amd64.deb
+E: Sub-process /usr/bin/dpkg returned an error code (1)
+
+---> Solved:
+- Uninstall old version
+sudo apt-get purge -y nodejs npm
+sudo apt-get purge -y nodejs-legacy npm
+
+- Install required lib and upgrade:
+sudo apt install libnode72
+sudo apt update
+sudo apt upgrade
+
+- Install new version:
++ Read the cache apt node path from error, replace to below command:
+sudo dpkg -i --force-overwrite /var/cache/apt/archives/nodejs_15.14.0-deb-1nodesource1_amd64.deb
++ Re-install with command above
+
+# [Optional] Install yarn
+sudo npm install --global yarn
 
 # Install pm2
 sudo npm install pm2 -g
@@ -63,11 +90,15 @@ pm2 install pm2-logrotate
 ## Install MongoDB
 ```
 * Check linux version: lsb_release -a
-
-https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
-
-* Ubuntu 20.04 (Focal)
+sudo apt install wget
 wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
+
+* https://docs.mongodb.com/manual/tutorial/install-mongodb-on-debian/
+* Debian 10 "Buster"
+echo "deb http://repo.mongodb.org/apt/debian buster/mongodb-org/4.4 main" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
+
+* https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
+* Ubuntu 20.04 (Focal)
 echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
 
 sudo apt update
@@ -150,21 +181,35 @@ sudo systemctl status nginx
 ```
 
 ## Create domain config
+
+[api.nhancv.com](./api.nhancv.com)
+
 ```
 File: api.nhancv.com
 ```
 
 ## Setup SSL Https
 ```
+[OBSOLETED]
 sudo apt update
 sudo apt install software-properties-common -y
 sudo add-apt-repository universe
-sudo add-apt-repository ppa:certbot/certbot
+# Ubuntu < 20.04
+  sudo add-apt-repository ppa:certbot/certbot
+# Ubuntu 20.04
+  sudo apt-add-repository -r ppa:certbot/certbot
 sudo apt update
 sudo apt install certbot python-certbot-nginx  -y
+
+[LATEST WAY]
+sudo apt install certbot python3-certbot-nginx
 sudo certbot --nginx
 
 * Select redirect all request to HTTPS, nginx will update domain config automatically
+
+--- Deal with error when add ppa:cerbot, try install nginx from source
+** Install certbot from source:
+curl -o- https://raw.githubusercontent.com/vinyll/certbot-install/master/install.sh | bash
 ```
 
 ## Prepare source
@@ -258,4 +303,10 @@ ws --http2
 
 # detach tmux
 Ctrl + B + D
+```
+
+### Stress test
+
+```
+JOUT=jmeter_`date +"%y%m%d_%H%M%S"` && mkdir -p $JOUT && jmeter -n -t jmeter_test.jmx -l $JOUT/result.log -j $JOUT/out.log -e -o $JOUT/html
 ```
