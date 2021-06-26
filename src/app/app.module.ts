@@ -1,5 +1,5 @@
 import {Module} from '@nestjs/common';
-import {ConfigModule} from '@nestjs/config';
+import {ConfigModule, ConfigService} from '@nestjs/config';
 import {AppController} from './app.controller';
 import {AppService} from './app.service';
 import {ServeStaticModule} from "@nestjs/serve-static";
@@ -9,6 +9,8 @@ import {AppConfigModule} from "../collections/app-config/app-config.module";
 import {MigrationModule} from "../packages/migration/migration.module";
 import {MongooseModule} from "@nestjs/mongoose";
 import {ScheduleModule} from "@nestjs/schedule";
+import {ThrottlerGuard, ThrottlerModule} from "@nestjs/throttler";
+import {APP_GUARD} from "@nestjs/core";
 
 @Module({
   imports: [
@@ -22,9 +24,25 @@ import {ScheduleModule} from "@nestjs/schedule";
     MigrationModule,
     AppConfigModule,
     AppLogModule,
+    // https://docs.nestjs.com/security/rate-limiting
+    // https://github.com/nestjs/throttler
+    ThrottlerModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => ({
+        ttl: config.get('THROTTLE_TTL', 60),
+        limit: config.get('THROTTLE_LIMIT', 10000),
+      }),
+    }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
+  ],
 })
 export class AppModule {
 }
