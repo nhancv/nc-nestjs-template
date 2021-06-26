@@ -181,6 +181,9 @@ sudo systemctl status nginx
 ```
 
 ## Create domain config
+
+[api.nhancv.com](./api.nhancv.com)
+
 ```
 File: api.nhancv.com
 ```
@@ -300,4 +303,10 @@ ws --http2
 
 # detach tmux
 Ctrl + B + D
+```
+
+### Stress test
+
+```
+JOUT=jmeter_`date +"%y%m%d_%H%M%S"` && mkdir -p $JOUT && jmeter -n -t jmeter_test.jmx -l $JOUT/result.log -j $JOUT/out.log -e -o $JOUT/html
 ```

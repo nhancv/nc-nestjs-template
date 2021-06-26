@@ -3,3 +3,5 @@
 !.env_sample
 *.DS_Store
 node_modules
+# Just commit dist in build branch
+dist

@@ -21,7 +21,7 @@ import {APP_GUARD} from "@nestjs/core";
       inject: [ConfigService],
       useFactory: (config: ConfigService) => ({
         ttl: config.get('THROTTLE_TTL', 60),
-        limit: config.get('THROTTLE_LIMIT', 10),
+        limit: config.get('THROTTLE_LIMIT', 10000),
       }),
     }),
   ],
