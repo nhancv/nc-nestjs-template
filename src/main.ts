@@ -29,7 +29,7 @@ async function bootstrap() {
   // proxy_set_header X-Real-IP $remote_addr;
   // proxy_set_header Host $host;
   app.set('trust proxy', 'loopback');
-  morgan.token('date', (req, res, tz) => moment().utc().utcOffset("+0700").format());
+  morgan.token('date', () => moment().utc().utcOffset("+0700").format());
   const morganFormat = ':remote-addr - :remote-user [:date] :method :url :status - :response-time ms :user-agent';
   app.use(morgan(morganFormat));
   app.enableCors();
