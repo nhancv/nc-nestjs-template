@@ -174,7 +174,7 @@ rs0:PRIMARY > rs.status()
 
 ```
 Connection URI:
-mongodb://DB_USERNAME:DB_PASSWORD@IP_NODE1:27017,IP_NODE2:27017,IP_NODE2:27017/?replicaSet=rs0&authSource=DB_NAME
+mongodb://DB_USERNAME:DB_PASSWORD@IP_NODE1:27017,IP_NODE2:27017,IP_NODE2:27017/DB_NAME?replicaSet=rs0&authSource=DB_NAME
 ```
 
 - Generate key for Replicate Set
