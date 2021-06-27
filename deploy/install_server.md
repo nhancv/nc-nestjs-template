@@ -231,11 +231,12 @@ sudo ufw allow 3000
 ```
 
 ## Run app
+
 - In the first time
 ```
 # Install dep
 npm i
-pm2 start npm --name nhancv-prod -- run start:prod
+pm2 --log-date-format="YYYY-MM-DD HH:mm Z" --name nhancv-prod start npm -- run start:prod
 ```
 - Reload app
 ```
@@ -244,6 +245,36 @@ pm2 reload nhancv-prod
 - View logs
 ```
 pm2 logs nhancv-prod
+```
+- Monitor
+```
+pm2 monit
+```
+- Stop/Delete all
+```
+pm2 stop all
+pm2 delete all
+```
+
+## [Optional] Run app in Cluster mode
+
+Make sure your application is stateless: share database/cache, cronjob
+
+```
+# Start all applications
+pm2 start ecosystem.config.js
+
+# Stop all
+pm2 stop ecosystem.config.js
+
+# Restart all
+pm2 restart ecosystem.config.js
+
+# Reload all
+pm2 reload ecosystem.config.js
+
+# Delete all
+pm2 delete ecosystem.config.js
 ```
 
 ## Api endpoint
