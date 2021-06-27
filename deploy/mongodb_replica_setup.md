@@ -119,7 +119,7 @@ sudo ufw allow 2717,2727,2737/tcp
 sudo ufw allow from <client_ip_address> to any port 27017
 ```
 
-### How to access Replicate Set from external?
+#### How to access Replicate Set from external?
 
 > The last sentence is important: "In conclusion, to support key features of replica sets, we require that the hostnames used in a replica set config are reachable from the client." So this means that the hostnames in the config have to be visible/accessible from outside.
 
@@ -141,11 +141,11 @@ rs0:PRIMARY> cfg.members[2].host = "192.168.1.11:2737"
 rs0:PRIMARY> rs.reconfig(cfg)
 ```
 
-### How to enable authentication Replicate Set
+#### How to enable authentication Replicate Set
 
 - With `Option 2`, access to PRIMARY node create new user admin, remove `--noauth` in node's command before run. This option for test deployment only
 
-#### Config for OPTION 1 (Separated VPS)
+##### Config for OPTION 1 (Separated VPS)
 
 - Create `root` account: https://docs.mongodb.com/manual/reference/built-in-roles/
 
@@ -173,7 +173,7 @@ rs0:PRIMARY > rs.status()
 [install_server.md](./install_server.md)
 
 ```
-Connection URI:
+Connection URI to specific Database:
 mongodb://DB_USERNAME:DB_PASSWORD@IP_NODE1:27017,IP_NODE2:27017,IP_NODE2:27017/DB_NAME?replicaSet=rs0&authSource=DB_NAME
 ```
 
@@ -185,7 +185,7 @@ chmod 400 /etc/mongodb/keys/mongo-key
 chown -R mongodb:mongodb /etc/mongodb
 ```
 
-- Update mongodb config
+- Update MongoDB config
 
 ```
 sudo nano /etc/mongod.conf
@@ -219,9 +219,105 @@ rm -rf /var/lib/mongodb/mongod.lock
 
 * Copy `mongo-key` to all node and update `mongodb config` to all as well
 
-#### Verify connection form client
+##### Verify connection form client
 
 ```
+# Connect to default admin database:
 mongo "mongodb://192.168.1.11:2717,192.168.1.11:2727,192.168.1.11:2737/?replicaSet=rs0"
 ```
 
+
+### How to config SRV + TXT for MongoDB Replica Set URI?
+
+- Access to Domain dashboard -> Advanced DNS
+- Add some config types here:
+
+**TYPE A**
+```
+TYPE A
+#1
+Host: rs1-dev
+IP: 192.168.1.10
+
+#2
+Host: rs2-dev
+IP: 192.168.1.11
+
+#3
+Host: rs3-dev
+IP: 192.168.1.12
+```
+
+**TYPE SRV**
+```
+#1
+Service: _mongodb
+Protocol: _tcp.rs-dev
+Priority: 0
+Weight: 5
+Port: 27017
+Target: rs1-dev.nhancv.com
+TTL: 86400
+
+#2
+Service: _mongodb
+Protocol: _tcp.rs-dev
+Priority: 0
+Weight: 5
+Port: 27017
+Target: rs2-dev.nhancv.com
+TTL: 86400
+
+#3
+Service: _mongodb
+Protocol: _tcp.rs-dev
+Priority: 0
+Weight: 5
+Port: 27017
+Target: rs3-dev.nhancv.com
+TTL: 86400
+```
+
+**TYPE TXT**
+```
+Host: rs-dev
+Target: replicaSet=rs0
+```
+
+- Verify hostname
+
+```
+nslookup
+> set type=SRV
+> _mongodb._tcp.rs-dev.nhancv.com
+
+Non-authoritative answer:
+_mongodb._tcp.rs-dev.nhancv.com	service = 0 5 27017 rs1-dev.nhancv.com.
+_mongodb._tcp.rs-dev.nhancv.com	service = 0 5 27017 rs2-dev.nhancv.com.
+_mongodb._tcp.rs-dev.nhancv.com	service = 0 5 27017 rs3-dev.nhancv.com.
+```
+
+- Update `bindIp` of `/etc/mongod.conf` to allow new domain
+
+```
+sudo nano /etc/mongod.conf
+
+# network interfaces
+net:
+  port: 27017
+  bindIp: 127.0.0.1,<current_node_ip>,rs1-dev.nhancv.com
+
+=> Restart mongodb
+```
+
+> Do the same with the others.
+
+- New connection URI
+```
+FULL:
+mongodb://DB_USERNAME:DB_PASSWORD@
+rs1-dev.nhancv.com:27017,rs2-dev.nhancv.com:27017,rs3-dev.nhancv.com:27017/DB_NAME?replicaSet=rs0&authSource=DB_NAME
+
+SHORT with SRV:
+mongodb+srv://DB_USERNAME:DB_PASSWORD@rs-dev.nhancv.com/DB_NAME?authSource=DB_NAME
+```
