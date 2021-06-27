@@ -147,7 +147,35 @@ rs0:PRIMARY> rs.reconfig(cfg)
 
 #### Config for OPTION 1 (Separated VPS)
 
-- Create `admin` account: [install_server.md](./install_server.md)
+- Create `root` account: https://docs.mongodb.com/manual/reference/built-in-roles/
+
+> `root` role has `clusterAdmin` permission
+
+```
+# If you forget old access password, just update config to disable authentication and restart. After add password, enable again.
+> use admin;
+> db.createUser({
+      user: "root",
+      pwd: "ROOT_PASSWORD",
+      roles: [{ role: "root", db: "admin" }]
+  });
+```
+
+- Verify password after create `root` account
+```
+mongo -u root -p --authenticationDatabase admin
+
+rs0:PRIMARY > rs.status()
+```
+
+- Create `admin` account and specific account for each database. Root account just use for maintain cluster only.
+
+[install_server.md](./install_server.md)
+
+```
+Connection URI:
+mongodb://DB_USERNAME:DB_PASSWORD@IP_NODE1:27017,IP_NODE2:27017,IP_NODE2:27017/?replicaSet=rs0&authSource=DB_NAME
+```
 
 - Generate key for Replicate Set
 ```
@@ -160,17 +188,17 @@ chown -R mongodb:mongodb /etc/mongodb
 - Update mongodb config
 
 ```
-$ sudo nano /etc/mongod.conf
+sudo nano /etc/mongod.conf
 
 # network interfaces
 net:
   port: 27017
-  bindIp: <current_node_ip>
+  bindIp: 127.0.0.1,<current_node_ip>
 
 #security:
 security:
   authorization: 'enabled'
-  keyFile:  /etc/mongodb/keys/mongo-key
+  keyFile: /etc/mongodb/keys/mongo-key
 
 #replication:
 replication:
@@ -179,7 +207,14 @@ replication:
 
 - Restart MongoDB Service
 ```
-sudo systemctl restart mongod
+sudo service mongod restart
+sudo service mongod status
+
+# If restart fail -> read mongo log
+cat /var/log/mongodb/mongod.log
+=> Solve error: "Failed to unlink socket file"
+rm -rf /tmp/mongodb-27017.sock
+rm -rf /var/lib/mongodb/mongod.lock
 ```
 
 * Copy `mongo-key` to all node and update `mongodb config` to all as well
