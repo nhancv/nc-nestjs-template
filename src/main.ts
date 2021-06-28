@@ -61,6 +61,7 @@ async function bootstrap() {
   // Migrate first
   const migrationService = app.select(MigrationModule).get(MigrationService, {strict: true});
   await migrationService.migrate();
+  
   // Start api
   const port = parseInt(process.env.PORT || '3000');
   await app.listen(port, '0.0.0.0');
