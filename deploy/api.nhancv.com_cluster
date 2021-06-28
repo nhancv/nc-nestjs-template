@@ -1,33 +1,35 @@
 
-sudo nano /etc/nginx/sites-available/api.nhancv.com_cluster
+sudo nano /etc/nginx/sites-available/api.nhancv.com
 
-http {
-    upstream ncluster {
-        server 127.0.0.1:3000 weight=3;
-        server 127.0.0.1:3001;
-    }
-
-    server {
-        listen 80;
-        listen [::]:80;
-
-        server_name api.nhancv.com;
-
-        location / {
-            proxy_pass http://ncluster;
-            proxy_http_version 1.1;
-            proxy_set_header Upgrade           $http_upgrade;
-            proxy_set_header Host              $host;
-            proxy_set_header X-Real-IP         $remote_addr;
-            proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
-            proxy_set_header X-Forwarded-Proto $scheme;
-            proxy_set_header Connection        'upgrade';
-            proxy_cache_bypass $http_upgrade;
-        }
-    }
+# start of file
+# http {
+upstream ncluster {
+    server 127.0.0.1:3000 weight=3;
+    server 127.0.0.1:3001;
 }
 
-sudo ln -s /etc/nginx/sites-available/api.nhancv.com_cluster /etc/nginx/sites-enabled/
+server {
+    listen 80;
+    listen [::]:80;
+
+    server_name api.nhancv.com;
+
+    location / {
+        proxy_pass http://ncluster;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade           $http_upgrade;
+        proxy_set_header Host              $host;
+        proxy_set_header X-Real-IP         $remote_addr;
+        proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Connection        'upgrade';
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+# }
+# end of file
+
+sudo ln -s /etc/nginx/sites-available/api.nhancv.com /etc/nginx/sites-enabled/
 sudo nginx -t
 sudo service nginx reload
 
