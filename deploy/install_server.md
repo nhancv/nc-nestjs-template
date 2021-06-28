@@ -171,47 +171,6 @@ sudo service mongod status
 mongo -u DB_USERNAME -p DB_PASSWORD 127.0.0.1/DB_NAME
 ```
 
-## (OPTIONAL FOR DOMAIN)
-## Install nginx
-```
-sudo apt update
-sudo apt install nginx
-sudo systemctl enable nginx
-sudo systemctl status nginx
-```
-
-## Create domain config
-
-[api.nhancv.com](./api.nhancv.com)
-
-```
-File: api.nhancv.com
-```
-
-## Setup SSL Https
-```
-[OBSOLETED]
-sudo apt update
-sudo apt install software-properties-common -y
-sudo add-apt-repository universe
-# Ubuntu < 20.04
-  sudo add-apt-repository ppa:certbot/certbot
-# Ubuntu 20.04
-  sudo apt-add-repository -r ppa:certbot/certbot
-sudo apt update
-sudo apt install certbot python-certbot-nginx  -y
-
-[LATEST WAY]
-sudo apt install certbot python3-certbot-nginx
-sudo certbot --nginx
-
-* Select redirect all request to HTTPS, nginx will update domain config automatically
-
---- Deal with error when add ppa:cerbot, try install nginx from source
-** Install certbot from source:
-curl -o- https://raw.githubusercontent.com/vinyll/certbot-install/master/install.sh | bash
-```
-
 ## Prepare source
 - Clone source
 ```
@@ -259,6 +218,8 @@ pm2 delete all
 ## [Optional] Run app in Cluster mode
 
 Make sure your application is stateless: share database/cache, cronjob
+
+https://www.youtube.com/watch?v=t6YOCZ_XAhI
 
 ```
 # Start all applications
@@ -341,3 +302,50 @@ Ctrl + B + D
 ```
 JOUT=jmeter_`date +"%y%m%d_%H%M%S"` && mkdir -p $JOUT && jmeter -n -t jmeter_test.jmx -l $JOUT/result.log -j $JOUT/out.log -e -o $JOUT/html
 ```
+
+## (OPTIONAL FOR DOMAIN)
+## Install nginx
+```
+sudo apt update
+sudo apt install nginx
+sudo systemctl enable nginx
+sudo systemctl status nginx
+```
+
+## Create domain config
+
+[api.nhancv.com](./api.nhancv.com)
+
+```
+File: api.nhancv.com
+```
+
+## Setup SSL Https
+```
+[OBSOLETED]
+sudo apt update
+sudo apt install software-properties-common -y
+sudo add-apt-repository universe
+# Ubuntu < 20.04
+  sudo add-apt-repository ppa:certbot/certbot
+# Ubuntu 20.04
+  sudo apt-add-repository -r ppa:certbot/certbot
+sudo apt update
+sudo apt install certbot python-certbot-nginx  -y
+
+[LATEST WAY]
+sudo apt install certbot python3-certbot-nginx
+sudo certbot --nginx
+
+* Select redirect all request to HTTPS, nginx will update domain config automatically
+
+--- Deal with error when add ppa:cerbot, try install nginx from source
+** Install certbot from source:
+curl -o- https://raw.githubusercontent.com/vinyll/certbot-install/master/install.sh | bash
+```
+
+## (Optional) Setup Nginx HTTP load balancer
+
+https://docs.nginx.com/nginx/admin-guide/load-balancer/http-load-balancer/
+
+[api.nhancv.com_cluster](./api.nhancv.com_cluster)
