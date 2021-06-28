@@ -5,7 +5,35 @@
 
 ## Setup MongoDB
 
-[Install doc](./install_server.md)
+```
+* Check linux version: lsb_release -a
+sudo apt install wget
+wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
+
+* https://docs.mongodb.com/manual/tutorial/install-mongodb-on-debian/
+* Debian 10 "Buster"
+echo "deb http://repo.mongodb.org/apt/debian buster/mongodb-org/4.4 main" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
+
+* https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
+* Ubuntu 20.04 (Focal)
+echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
+
+sudo apt update
+sudo apt install -y build-essential
+sudo apt install -y mongodb-org
+sudo systemctl enable mongod
+sudo service mongod start
+
+```
+
+- Controls
+```
+- Start: sudo service mongod start
+- Verify status: sudo cat /var/log/mongodb/mongod.log or sudo systemctl status mongod
+- Stop: sudo service mongod stop
+- Restart: sudo service mongod restart
+- Status: sudo systemctl status mongod
+```
 
 ## Config replica
 
@@ -121,7 +149,7 @@ sudo ufw allow from <client_ip_address> to any port 27017
 
 #### How to access Replicate Set from external?
 
-> The last sentence is important: "In conclusion, to support key features of replica sets, we require that the hostnames used in a replica set config are reachable from the client." So this means that the hostnames in the config have to be visible/accessible from outside.
+> "In conclusion, to support key features of replica sets, we require that the hostnames used in a replica set config are reachable from the client." So this means that the hostnames in the config have to be visible/accessible from outside.
 
 We need specific domain or real ip instead localhost when adding replica
 
@@ -149,7 +177,7 @@ rs0:PRIMARY> rs.reconfig(cfg)
 
 - Create `root` account: https://docs.mongodb.com/manual/reference/built-in-roles/
 
-> `root` role has `clusterAdmin` permission
+###### `root` role has `clusterAdmin` permission
 
 ```
 # If you forget old access password, just update config to disable authentication and restart. After add password, enable again.
@@ -170,8 +198,32 @@ rs0:PRIMARY > rs.status()
 
 - Create `admin` account and specific account for each database. Root account just use for maintain cluster only.
 
-[install_server.md](./install_server.md)
+```
+mongo
+> use admin;
+> db.createUser({
+      user: "admin",
+      pwd: "ADMIN_PASSWORD",
+      roles: [
+                { role: "userAdminAnyDatabase", db: "admin" },
+                { role: "readWriteAnyDatabase", db: "admin" },
+                { role: "dbAdminAnyDatabase",   db: "admin" }
+             ]
+  });
 
+> use DB_NAME;
+> db.createUser({
+      user: "DB_USERNAME",
+      pwd: "DB_PASSWORD",
+      roles: [
+                { role: "userAdmin", db: "DB_NAME" },
+                { role: "dbAdmin",   db: "DB_NAME" },
+                { role: "readWrite", db: "DB_NAME" }
+             ]
+  });
+```
+
+- Connection URI to specific Database
 ```
 Connection URI to specific Database:
 mongodb://DB_USERNAME:DB_PASSWORD@IP_NODE1:27017,IP_NODE2:27017,IP_NODE2:27017/DB_NAME?replicaSet=rs0&authSource=DB_NAME
@@ -310,7 +362,7 @@ net:
 => Restart mongodb
 ```
 
-> Do the same with the others.
+###### Do the same with the others.
 
 - New connection URI
 ```
