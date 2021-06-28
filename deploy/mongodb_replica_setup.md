@@ -158,7 +158,7 @@ rs0:PRIMARY> rs.add("<ip_1>:2727")
 rs0:PRIMARY> rs.add("<ip_2>:2737")
 ```
 
-- To update replicate host name, access to PRIMARY node first
+- To update replicate host name, access to PRIMARY node:
 ```
 mongo --port 2717
 
@@ -333,7 +333,7 @@ TTL: 86400
 **TYPE TXT**
 ```
 Host: rs-dev
-Target: replicaSet=rs0
+Target: ssl=false&replicaSet=rs0&authSource=admin
 ```
 
 - Verify hostname
@@ -349,27 +349,23 @@ _mongodb._tcp.rs-dev.nhancv.com	service = 0 5 27017 rs2-dev.nhancv.com.
 _mongodb._tcp.rs-dev.nhancv.com	service = 0 5 27017 rs3-dev.nhancv.com.
 ```
 
-- Update `bindIp` of `/etc/mongod.conf` to allow new domain
+- Access to PRIMARY node and update replicate host name
 
 ```
-sudo nano /etc/mongod.conf
+mongo -u root -p
 
-# network interfaces
-net:
-  port: 27017
-  bindIp: 127.0.0.1,<current_node_ip>,rs1-dev.nhancv.com
-
-=> Restart mongodb
+rs0:PRIMARY> cfg = rs.conf()
+rs0:PRIMARY> cfg.members[0].host = "rs1-dev.nhancv.com:27017"
+rs0:PRIMARY> cfg.members[1].host = "rs2-dev.nhancv.com:27017"
+rs0:PRIMARY> cfg.members[2].host = "rs3-dev.nhancv.com:27017"
+rs0:PRIMARY> rs.reconfig(cfg)
 ```
-
-###### Do the same with the others.
 
 - New connection URI
 ```
 FULL:
-mongodb://DB_USERNAME:DB_PASSWORD@
-rs1-dev.nhancv.com:27017,rs2-dev.nhancv.com:27017,rs3-dev.nhancv.com:27017/DB_NAME?replicaSet=rs0&authSource=DB_NAME
+mongodb://DB_USERNAME:DB_PASSWORD@rs1-dev.nhancv.com:27017,rs2-dev.nhancv.com:27017,rs3-dev.nhancv.com:27017/DB_NAME?replicaSet=rs0&authSource=DB_NAME
 
-SHORT with SRV:
-mongodb+srv://DB_USERNAME:DB_PASSWORD@rs-dev.nhancv.com/DB_NAME?authSource=DB_NAME
+SHORT with SRV: (ssl=false is must)
+mongodb+srv://DB_USERNAME:DB_PASSWORD@rs-dev.nhancv.com/DB_NAME?ssl=false&replicaSet=rs0&authSource=DB_NAME
 ```
