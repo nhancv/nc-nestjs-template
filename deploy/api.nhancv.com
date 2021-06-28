@@ -1,5 +1,7 @@
 
 sudo nano /etc/nginx/sites-available/api.nhancv.com
+
+# start of file
 server {
     listen 80;
     listen [::]:80;
@@ -18,6 +20,8 @@ server {
         proxy_cache_bypass $http_upgrade;
     }
 }
+# end of file
+
 sudo ln -s /etc/nginx/sites-available/api.nhancv.com /etc/nginx/sites-enabled/
 sudo nginx -t
 sudo service nginx reload
