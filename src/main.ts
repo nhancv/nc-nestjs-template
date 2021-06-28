@@ -22,6 +22,7 @@ async function bootstrap() {
   // // Create app instance for Standalone mode
   // const app = await NestFactory.createApplicationContext(AppModule);
   // // Application logic......
+  // // Get app service
   // const appService = app.get(AppService);
   // logger.log(appService.getHello());
 
@@ -55,6 +56,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('docs', app, document);
 
+  // Start api
   const port = parseInt(process.env.PORT || '3000');
   await app.listen(port, '0.0.0.0');
   logger.log(`Application is running on: ${await app.getUrl()}`);
