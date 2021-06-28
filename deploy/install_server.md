@@ -260,6 +260,8 @@ pm2 delete all
 
 Make sure your application is stateless: share database/cache, cronjob
 
+https://www.youtube.com/watch?v=t6YOCZ_XAhI
+
 ```
 # Start all applications
 pm2 start ecosystem.config.js
