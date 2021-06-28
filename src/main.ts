@@ -23,9 +23,11 @@ async function bootstrap() {
 
   // // Create app instance for Standalone mode
   // const app = await NestFactory.createApplicationContext(AppModule);
-  // // Get migration module
+  // // Application logic......
+  // // Get migration service
   // const migrationService = app.select(MigrationModule).get(MigrationService, {strict: true});
   // await migrationService.migrate();
+  // // Get app service
   // const appService = app.get(AppService);
   // logger.log(appService.getHello());
 
