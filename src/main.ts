@@ -51,6 +51,7 @@ async function bootstrap() {
     SwaggerModule.setup('docs', app, document);
 
     // Migrate first
+    // ...
     const migrationService = app.select(MigrationModule).get(MigrationService, {strict: true});
     await migrationService.migrate();
 
@@ -62,6 +63,7 @@ async function bootstrap() {
     // Full mode
     if (ENABLE_WORKER) {
       // Start cronjob
+      // ...
       const cronJobService = app.select(CronModule).get(CronService, {strict: true});
       await cronJobService.startCronJobs();
     }
@@ -82,6 +84,7 @@ async function bootstrap() {
     const appService = app.get(AppService);
     logger.log(appService.getHello());
     // Start cronjob
+    // ...
     const cronJobService = app.select(CronModule).get(CronService, {strict: true});
     await cronJobService.startCronJobs();
   }
