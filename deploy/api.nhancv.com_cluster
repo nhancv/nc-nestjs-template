@@ -3,7 +3,7 @@ sudo nano /etc/nginx/sites-available/api.nhancv.com
 
 # start of file
 # http {
-upstream api.nhancv.com {
+upstream _api.nhancv.com_ {
     server 127.0.0.1:3000 weight=3;
     server 127.0.0.1:3001;
 }
@@ -15,7 +15,7 @@ server {
     server_name api.nhancv.com;
 
     location / {
-        proxy_pass http://api.nhancv.com;
+        proxy_pass http://_api.nhancv.com_;
         proxy_http_version 1.1;
         proxy_set_header Upgrade           $http_upgrade;
         proxy_set_header Host              $host;
