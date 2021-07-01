@@ -12,8 +12,8 @@
 - Setup application on destination server `2.2.2.2`
 - Setup nginx virtual domain -> Copy all domain config from `1.1.1.1` to `2.2.2.2`
   + /etc/nginx/sites-available/nhancv.com -> /etc/nginx/sites-available/nhancv.com
-  + /etc/letsencrypt/`live`/nhancv.com/fullchain.pem -> /etc/letsencrypt/`tmp`/nhancv.com/fullchain.pem
-  + /etc/letsencrypt/`live`/nhancv.com/privkey.pem -> /etc/letsencrypt/`tmp`/nhancv.com/privkey.pem
+  + /etc/letsencrypt/`live`/nhancv.com/fullchain.pem -> /etc/letsencrypt/`tmp`/nhancv.com`_tmp`/fullchain.pem
+  + /etc/letsencrypt/`live`/nhancv.com/privkey.pem -> /etc/letsencrypt/`tmp`/nhancv.com`_tmp`/privkey.pem
 - Create Certbot ssl config if it does not exist
 - Reload nginx on `2.2.2.2`
 - Wait dns record update
@@ -31,9 +31,9 @@
 # Copy cert + key from `1.1.1.1` to `2.2.2.2`
 1.1.1.1 > sudo cat /etc/letsencrypt/live/nhancv.com/fullchain.pem
 2.2.2.2 > sudo mkdir -p /etc/letsencrypt/tmp/nhancv.com
-2.2.2.2 > sudo nano /etc/letsencrypt/tmp/nhancv.com/fullchain.pem
+2.2.2.2 > sudo nano /etc/letsencrypt/tmp/nhancv.com_tmp/fullchain.pem
 1.1.1.1 > sudo cat /etc/letsencrypt/live/nhancv.com/privkey.pem
-2.2.2.2 > sudo nano /etc/letsencrypt/tmp/nhancv.com/privkey.pem
+2.2.2.2 > sudo nano /etc/letsencrypt/tmp/nhancv.com_tmp/privkey.pem
 
 # Create Certbot ssl config if it does not exist
 2.2.2.2 > sudo cat /etc/letsencrypt/options-ssl-nginx.conf
@@ -46,8 +46,8 @@ If not exist, copy from 1.1.1.1
 ** Make sure domain config file of SSL similar like this
     listen [::]:443 ssl; # managed by Certbot
     listen 443 ssl; # managed by Certbot
-    ssl_certificate /etc/letsencrypt/tmp/nhancv.com/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/tmp/nhancv.com/privkey.pem;
+    ssl_certificate /etc/letsencrypt/tmp/nhancv.com_tmp/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/tmp/nhancv.com_tmp/privkey.pem;
     include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 
