@@ -145,6 +145,11 @@ sudo ufw allow 2717,2727,2737/tcp
 
 # Or allow from specific host access to specific port 27017
 sudo ufw allow from <client_ip_address> to any port 27017
+
+# To delete rule use
+sudo ufw delete <RULE NAME>
+ex:
+sudo ufw delete allow 27017
 ```
 
 #### How to access Replicate Set from external?
@@ -333,7 +338,7 @@ TTL: 86400
 **TYPE TXT**
 ```
 Host: rs-dev
-Target: ssl=false&replicaSet=rs0&authSource=admin
+Target: replicaSet=rs0&authSource=admin
 ```
 
 - Verify hostname

@@ -21,13 +21,14 @@ module.exports = {
     exec_mode : "cluster", // default fork
     instances: 2, //"max",
     kill_timeout : 4000,
-    wait_ready: true,
+    wait_ready: false,
     autorestart: true,
     watch: false,
     max_memory_restart: "1G",
     log_date_format : "YYYY-MM-DD HH:mm Z",
     env: {
-      NODE_ENV: "prod"
+      ENABLE_WEB: 'true',
+      ENABLE_WORKER: 'false',
     },
   }]
 };
