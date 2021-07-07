@@ -13,7 +13,7 @@ async function bootstrap() {
 
   const ENABLE_WEB = (process.env.ENABLE_WEB ?? 'true') == 'true';
   const ENABLE_WORKER = (process.env.ENABLE_WORKER ?? 'false') == 'true';
-console.log({ENABLE_WORKER});
+
   // Check worker api
   if (ENABLE_WEB) {
     //----------------------------//
