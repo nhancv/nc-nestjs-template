@@ -342,6 +342,12 @@ sudo certbot --nginx
 --- Deal with error when add ppa:cerbot, try install nginx from source
 ** Install certbot from source:
 curl -o- https://raw.githubusercontent.com/vinyll/certbot-install/master/install.sh | bash
+
+# To list all domain can be review
+sudo certbot renew
+
+# To manually renew all certs
+sudo certbot renew --dry-run
 ```
 
 ## (Optional) Setup Nginx HTTP load balancer
