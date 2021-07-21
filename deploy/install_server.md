@@ -215,6 +215,25 @@ pm2 stop all
 pm2 delete all
 ```
 
+## Autostart after reboot
+
+```
+Save current process or Freeze a process list on reboot via:
+$ pm2 save
+
+Register Startup Script
+$ pm2 startup
+
+Un-register startup on boot:
+$ pm2 unstartup systemd
+
+After save process list, you can manually restore list after reboot instead of restart each process or use Startup Script
+$ pm2 resurrect
+
+Check system log here
+sudo cat /var/log/syslog
+```
+
 ## [Optional] Run app in Cluster mode
 
 Make sure your application is stateless: share database/cache, cronjob
