@@ -10,3 +10,4 @@
 - Part 2: Config scale application process level using PM2 Cluster
 - Part 3: Config scale server level using Nginx HTTP Load Balancing
 - Part 4: Config scale dns level with HAProxy
+- Part 5: Install Monitor with Zabbix and Monit
