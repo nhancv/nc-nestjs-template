@@ -95,18 +95,25 @@ pm2 install pm2-logrotate
 ```
 
 ## Install MongoDB
+
+- Uninstall previous version
+```
+sudo apt-get purge mongodb-*
+```
+
+- Install new
 ```
 * Check linux version: lsb_release -a
 sudo apt install wget
-wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | sudo apt-key add -
+wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
 
 * https://docs.mongodb.com/manual/tutorial/install-mongodb-on-debian/
 * Debian 10 "Buster"
-echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/5.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-5.0.list
+echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
 
 * https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
 * Ubuntu 20.04 (Focal)
-echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/5.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-5.0.list
+echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
 
 sudo apt update
 sudo apt install -y build-essential
@@ -118,6 +125,7 @@ sudo service mongod start
 
 - Controls
 ```
+- Get version: mongod --version
 - Start: sudo service mongod start
 - Verify status: sudo cat /var/log/mongodb/mongod.log or sudo systemctl status mongod
 - Stop: sudo service mongod stop
