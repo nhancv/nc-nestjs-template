@@ -82,6 +82,10 @@ sudo apt upgrade
 sudo dpkg -i --force-overwrite /var/cache/apt/archives/nodejs_15.14.0-deb-1nodesource1_amd64.deb
 + Re-install with command above
 
+** Note for error: "The certificate is NOT trusted"
+- Install ca-certificates, then install nodejs again
+sudo apt install ca-certificates
+
 # [Optional] Install yarn
 sudo npm install --global yarn
 
