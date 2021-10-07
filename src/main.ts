@@ -7,12 +7,14 @@ import morgan from 'morgan';
 import moment from 'moment';
 import {NestExpressApplication} from "@nestjs/platform-express";
 import {AppService} from "./app/app.service";
+import fs from "fs";
 
 async function bootstrap() {
   const logger = new Logger('main');
 
   const ENABLE_WEB = (process.env.ENABLE_WEB ?? 'true') == 'true';
   const ENABLE_WORKER = (process.env.ENABLE_WORKER ?? 'false') == 'true';
+  const ENABLE_HTTPS = (process.env.ENABLE_HTTPS ?? 'false') == 'true';
 
   // Check worker api
   if (ENABLE_WEB) {
@@ -27,7 +29,14 @@ async function bootstrap() {
      */
 
     // Create app instance for API mode
-    const app = await NestFactory.create<NestExpressApplication>(AppModule);
+    const appOptions = {};
+    if (ENABLE_HTTPS) {
+      appOptions['httpsOptions'] = {
+        key: fs.readFileSync('./ssl/localhost/server.key'),
+        cert: fs.readFileSync('./ssl/localhost/server.crt')
+      }
+    }
+    const app = await NestFactory.create<NestExpressApplication>(AppModule, appOptions);
     app.set('trust proxy', 'loopback');
     morgan.token('date', () => moment().utc().utcOffset("+0700").format());
     const morganFormat = ':remote-addr - :remote-user [:date] :method :url :status - :response-time ms :user-agent';
