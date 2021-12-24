@@ -12,9 +12,11 @@ import { AllExceptionFilter } from './utils/all.exception.filter';
 async function bootstrap() {
   const logger = new Logger('main');
 
-  const ENABLE_WEB = (process.env.ENABLE_WEB ?? 'true') == 'true';
-  const ENABLE_WORKER = (process.env.ENABLE_WORKER ?? 'false') == 'true';
-  const ENABLE_HTTPS = (process.env.ENABLE_HTTPS ?? 'false') == 'true';
+  const NODE_ENV = process.env.NODE_ENV;
+  const PORT = process.env.PORT;
+  const ENABLE_HTTPS = process.env.ENABLE_HTTPS;
+  const ENABLE_WEB = process.env.ENABLE_WEB;
+  const ENABLE_WORKER = process.env.ENABLE_WEB;
 
   // Check worker api
   if (ENABLE_WEB) {
@@ -59,9 +61,8 @@ async function bootstrap() {
     // ...
 
     // Start api
-    const port = parseInt(process.env.PORT || '3000');
-    await app.listen(port, '0.0.0.0');
-    logger.log(`Application is running on: ${await app.getUrl()}`);
+    await app.listen(PORT, '0.0.0.0');
+    logger.log(`[${NODE_ENV}] Application is running on: ${await app.getUrl()}`);
 
     // Full mode
     if (ENABLE_WORKER) {
