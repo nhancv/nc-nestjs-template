@@ -1,11 +1,11 @@
-import {ApiProperty} from "@nestjs/swagger";
+import { ApiProperty } from '@nestjs/swagger';
 
 export interface BaseResponse<T> {
-  data?: T | null,
+  data?: T | null;
   error?: {
-    code: number,
-    message: string
-  } | null
+    code: number;
+    message: string;
+  } | null;
 }
 
 // Api Error Property type

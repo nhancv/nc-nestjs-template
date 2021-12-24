@@ -1,15 +1,15 @@
-import {Module} from '@nestjs/common';
-import {ConfigModule, ConfigService} from '@nestjs/config';
-import {AppController} from './app.controller';
-import {AppService} from './app.service';
-import {ServeStaticModule} from "@nestjs/serve-static";
-import {join} from 'path';
-import {ThrottlerGuard, ThrottlerModule} from "@nestjs/throttler";
-import {APP_GUARD} from "@nestjs/core";
+import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({isGlobal: true}),
+    ConfigModule.forRoot({ isGlobal: true }),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', '..', 'public'),
       exclude: ['/api*'],
@@ -34,5 +34,4 @@ import {APP_GUARD} from "@nestjs/core";
     },
   ],
 })
-export class AppModule {
-}
+export class AppModule {}

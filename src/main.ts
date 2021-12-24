@@ -1,13 +1,13 @@
-import {NestFactory} from '@nestjs/core';
-import {AppModule} from './app/app.module';
-import {AllExceptionFilter} from "./utils/all.exception.filter";
-import {Logger, ValidationPipe} from "@nestjs/common";
-import {DocumentBuilder, SwaggerModule} from "@nestjs/swagger";
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from './app/app.module';
+import { AllExceptionFilter } from './utils/all.exception.filter';
+import { Logger, ValidationPipe } from '@nestjs/common';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import morgan from 'morgan';
 import moment from 'moment';
-import {NestExpressApplication} from "@nestjs/platform-express";
-import {AppService} from "./app/app.service";
-import fs from "fs";
+import { NestExpressApplication } from '@nestjs/platform-express';
+import { AppService } from './app/app.service';
+import fs from 'fs';
 
 async function bootstrap() {
   const logger = new Logger('main');
@@ -33,12 +33,12 @@ async function bootstrap() {
     if (ENABLE_HTTPS) {
       appOptions['httpsOptions'] = {
         key: fs.readFileSync('./ssl/localhost/server.key'),
-        cert: fs.readFileSync('./ssl/localhost/server.crt')
-      }
+        cert: fs.readFileSync('./ssl/localhost/server.crt'),
+      };
     }
     const app = await NestFactory.create<NestExpressApplication>(AppModule, appOptions);
     app.set('trust proxy', 'loopback');
-    morgan.token('date', () => moment().utc().utcOffset("+0700").format());
+    morgan.token('date', () => moment().utc().utcOffset('+0700').format());
     const morganFormat = ':remote-addr - :remote-user [:date] :method :url :status - :response-time ms :user-agent';
     app.use(morgan(morganFormat));
     app.enableCors();
@@ -87,7 +87,6 @@ async function bootstrap() {
     // Start cronjob
     // ...
   }
-
 }
 
 bootstrap().then();

@@ -1,3 +1,1 @@
-export class AppUtil {
-
-}
+export class AppUtil {}
