@@ -5,8 +5,8 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as fs from 'fs';
 import * as moment from 'moment';
 import * as morgan from 'morgan';
-import { AppModule } from './app/app.module';
-import { AppService } from './app/app.service';
+import { AppModule } from './app.module';
+import { AppService } from './app.service';
 import { AllExceptionFilter } from './utils/all.exception.filter';
 
 async function bootstrap() {
