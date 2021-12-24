@@ -1,13 +1,13 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app/app.module';
-import { AllExceptionFilter } from './utils/all.exception.filter';
 import { Logger, ValidationPipe } from '@nestjs/common';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import morgan from 'morgan';
-import moment from 'moment';
 import { NestExpressApplication } from '@nestjs/platform-express';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import * as fs from 'fs';
+import * as moment from 'moment';
+import * as morgan from 'morgan';
+import { AppModule } from './app/app.module';
 import { AppService } from './app/app.service';
-import fs from 'fs';
+import { AllExceptionFilter } from './utils/all.exception.filter';
 
 async function bootstrap() {
   const logger = new Logger('main');
