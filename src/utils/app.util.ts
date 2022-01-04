@@ -1,1 +1,3 @@
-export class AppUtil {}
+export class AppUtil {
+  static parseBool = (n) => n === true || n === 'true' || Number(n) === 1;
+}

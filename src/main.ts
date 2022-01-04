@@ -8,15 +8,16 @@ import morgan from 'morgan';
 import { AppModule } from './app.module';
 import { AppService } from './app.service';
 import { AllExceptionFilter } from './utils/all.exception.filter';
+import { AppUtil } from './utils/app.util';
 
 async function bootstrap() {
   const logger = new Logger('main');
 
   const NODE_ENV = process.env.NODE_ENV;
-  const PORT = process.env.PORT;
-  const ENABLE_HTTPS = process.env.ENABLE_HTTPS;
-  const ENABLE_WEB = process.env.ENABLE_WEB;
-  const ENABLE_WORKER = process.env.ENABLE_WEB;
+  const PORT = Number(process.env.PORT);
+  const ENABLE_HTTPS = AppUtil.parseBool(process.env.ENABLE_HTTPS);
+  const ENABLE_WEB = AppUtil.parseBool(process.env.ENABLE_WEB);
+  const ENABLE_WORKER = AppUtil.parseBool(process.env.ENABLE_WORKER);
 
   // Check worker api
   if (ENABLE_WEB) {

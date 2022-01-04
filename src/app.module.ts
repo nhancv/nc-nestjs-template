@@ -25,7 +25,7 @@ import { AppController } from './app.controller';
       },
     }),
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', '..', 'public'),
+      rootPath: join(__dirname, '..', 'public'),
       exclude: ['/api*'],
     }),
     // https://docs.nestjs.com/security/rate-limiting
