@@ -5,6 +5,7 @@ import { Module } from '@nestjs/common';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppService } from './app.service';
 import { AppController } from './app.controller';
 
@@ -18,6 +19,11 @@ import { AppController } from './app.controller';
         ENABLE_HTTPS: Joi.bool().default(false),
         ENABLE_WEB: Joi.bool().default(true),
         ENABLE_WORKER: Joi.bool().default(true),
+        POSTGRES_URL: Joi.string(),
+        POSTGRES_PORT: Joi.number().default(5432),
+        POSTGRES_USERNAME: Joi.string(),
+        POSTGRES_PASSWORD: Joi.string(),
+        POSTGRES_DATABASE: Joi.string(),
       }),
       validationOptions: {
         allowUnknown: true,
@@ -36,6 +42,18 @@ import { AppController } from './app.controller';
       useFactory: (config: ConfigService) => ({
         ttl: config.get('THROTTLE_TTL', 60),
         limit: config.get('THROTTLE_LIMIT', 10000),
+      }),
+    }),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => ({
+        type: 'postgres',
+        host: config.get('POSTGRES_URL'),
+        port: config.get('POSTGRES_PORT'),
+        username: config.get('POSTGRES_USERNAME'),
+        password: config.get('POSTGRES_PASSWORD'),
+        database: config.get('POSTGRES_DATABASE'),
       }),
     }),
   ],
