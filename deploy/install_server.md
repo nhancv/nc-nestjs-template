@@ -259,6 +259,9 @@ https://www.youtube.com/watch?v=t6YOCZ_XAhI
 # Start all applications
 pm2 start ecosystem.config.js
 
+or
+pm2 --name nhancv-prod -i max start npm -- run start:prod
+
 # Stop all
 pm2 stop ecosystem.config.js
 
