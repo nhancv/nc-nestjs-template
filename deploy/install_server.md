@@ -208,13 +208,23 @@ sudo ufw allow 3000
 
 - In the first time
 ```
-# Install dep
 npm i
+```
+- Start app
+```
+pm2 --name nhancv-prod start npm -- run start:prod
+
+# Custom log date
 pm2 --log-date-format="YYYY-MM-DD HH:mm Z" --name nhancv-prod start npm -- run start:prod
+
+# No Auto Restart
+# https://pm2.keymetrics.io/docs/usage/restart-strategies/
+pm2 --name nhancv-prod --no-autorestart start npm -- run start:prod
+
 ```
 - Reload app
 ```
-pm2 reload nhancv-prod
+pm2 reload nhancv-prod --update-env
 ```
 - View logs
 ```
@@ -228,6 +238,13 @@ pm2 monit
 ```
 pm2 stop all
 pm2 delete all
+```
+
+- Stop and start
+```
+PROJECT_ID=nhancv-prod
+pm2 delete -s $PROJECT_ID || :
+pm2 --name $PROJECT_ID start npm -- run start:prod
 ```
 
 ## Autostart after reboot
