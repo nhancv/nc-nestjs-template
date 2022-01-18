@@ -10,15 +10,34 @@ import { AppService } from './app.service';
 import { AllExceptionFilter } from './utils/all.exception.filter';
 import { AppUtil } from './utils/app.util';
 
+const NODE_ENV = process.env.NODE_ENV;
+const PORT = Number(process.env.PORT);
+const ENABLE_HTTPS = AppUtil.parseBool(process.env.ENABLE_HTTPS);
+const ENABLE_WEB = AppUtil.parseBool(process.env.ENABLE_WEB);
+const ENABLE_WORKER = AppUtil.parseBool(process.env.ENABLE_WORKER);
+
+// Add this to the VERY top of the first file loaded in your app
+const AMP_SECRET_TOKEN = process.env.AMP_SECRET_TOKEN;
+const AMP_ENDPOINT_URL = process.env.AMP_ENDPOINT_URL;
+if (AMP_SECRET_TOKEN && AMP_ENDPOINT_URL) {
+  require('elastic-apm-node').start({
+    // Override the service name from package.json
+    // Allowed characters: a-z, A-Z, 0-9, -, _, and space
+    serviceName: process.env.npm_package_name,
+
+    // Use if APM Server requires a secret token
+    secretToken: process.env.AMP_SECRET_TOKEN,
+
+    // Set the custom APM Server URL (default: http://localhost:8200)
+    serverUrl: process.env.AMP_ENDPOINT_URL,
+
+    // Set the service environment
+    environment: NODE_ENV,
+  });
+}
+
 async function bootstrap() {
   const logger = new Logger('main');
-
-  const NODE_ENV = process.env.NODE_ENV;
-  const PORT = Number(process.env.PORT);
-  const ENABLE_HTTPS = AppUtil.parseBool(process.env.ENABLE_HTTPS);
-  const ENABLE_WEB = AppUtil.parseBool(process.env.ENABLE_WEB);
-  const ENABLE_WORKER = AppUtil.parseBool(process.env.ENABLE_WORKER);
-
   // Check worker api
   if (ENABLE_WEB) {
     //----------------------------//
