@@ -70,7 +70,14 @@
 <script src="http://cdn.socket.io/4.5.1/socket.io.min.js"></script>
 <script>
   const socket = io();
-
+  // const socket = io({ transports: ["websocket"] });
+  // const socket = io(host, { transports: ["websocket"] });
+  socket.on("connect", () => {
+    console.log(socket.connected);
+  });
+  socket.on("error", (e) => {
+    console.log(e);
+  });
   const messages = document.getElementById("messages");
   const form = document.getElementById("form");
   const input = document.getElementById("input");
