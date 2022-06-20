@@ -35,8 +35,8 @@ import { EventsModule } from './modules/events/events.module';
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (config: ConfigService) => ({
-        ttl: config.get('THROTTLE_TTL', 60),
-        limit: config.get('THROTTLE_LIMIT', 10000),
+        ttl: config.get('THROTTLE_TTL', 10),
+        limit: config.get('THROTTLE_LIMIT', 10),
       }),
     }),
     EventsModule,
