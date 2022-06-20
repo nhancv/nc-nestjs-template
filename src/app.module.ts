@@ -7,6 +7,7 @@ import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AppService } from './app.service';
 import { AppController } from './app.controller';
+import { EventsModule } from './modules/events/events.module';
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { AppController } from './app.controller';
         limit: config.get('THROTTLE_LIMIT', 10000),
       }),
     }),
+    EventsModule,
   ],
   controllers: [AppController],
   providers: [
