@@ -18,11 +18,17 @@ import { Logger } from '@nestjs/common';
   cors: {
     origin: '*',
     methods: ['GET', 'POST'],
-    transports: ['websocket', 'polling'],
+    transports: ['websocket'],
     credentials: true,
   },
+  namespace: '/',
   allowEIO3: true,
   cookie: true,
+  connectTimeout: 10000,
+  pingTimeout: 5000,
+  pingInterval: 5000,
+  upgradeTimeout: 5000,
+  maxHttpBufferSize: 10e3, // 10KB
 })
 export class EventsGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
   private logger: Logger = new Logger(EventsGateway.name);
