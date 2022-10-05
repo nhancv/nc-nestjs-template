@@ -1,6 +1,7 @@
 # Deploy
 
 ## Server
+
 ```
 ssh root@1.2.3.4
 
@@ -31,6 +32,7 @@ ssh nhancv@1.2.3.4
 ```
 
 ## Setup timezone (optional)
+
 ```
 # View current timezone info
 timedatectl
@@ -41,16 +43,21 @@ timedatectl list-timezones
 # Set timezone
 sudo timedatectl set-timezone Asia/Ho_Chi_Minh
 
+# [Optional] Sync time
+sudo date -s "$(wget -qSO- --max-redirect=0 google.com 2>&1 | grep Date: | cut -d' ' -f5-8)Z"
+
 # Confirm Timezone Change
 timedatectl
 ```
 
 ## Setup git
+
 ```
 sudo apt install git -y
 ```
 
 ## Setup nodejs
+
 ```
 curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
 sudo apt install -y nodejs
@@ -79,15 +86,31 @@ sudo apt upgrade
 sudo dpkg -i --force-overwrite /var/cache/apt/archives/nodejs_15.14.0-deb-1nodesource1_amd64.deb
 + Re-install with command above
 
+** Note for error: "The certificate is NOT trusted"
+- Install ca-certificates, then install nodejs again
+sudo apt install ca-certificates
+
 # [Optional] Install yarn
 sudo npm install --global yarn
 
 # Install pm2
 sudo npm install pm2 -g
 pm2 install pm2-logrotate
+pm2 set pm2-logrotate:max_size 10M
+pm2 set pm2-logrotate:compress true
+pm2 set pm2-logrotate:retain 10
 ```
 
 ## Install MongoDB
+
+- Uninstall previous version
+
+```
+sudo apt-get purge mongodb-*
+```
+
+- Install new
+
 ```
 * Check linux version: lsb_release -a
 sudo apt install wget
@@ -95,7 +118,7 @@ wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add 
 
 * https://docs.mongodb.com/manual/tutorial/install-mongodb-on-debian/
 * Debian 10 "Buster"
-echo "deb http://repo.mongodb.org/apt/debian buster/mongodb-org/4.4 main" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
+echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
 
 * https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
 * Ubuntu 20.04 (Focal)
@@ -110,7 +133,9 @@ sudo service mongod start
 ```
 
 - Controls
+
 ```
+- Get version: mongod --version
 - Start: sudo service mongod start
 - Verify status: sudo cat /var/log/mongodb/mongod.log or sudo systemctl status mongod
 - Stop: sudo service mongod stop
@@ -119,6 +144,7 @@ sudo service mongod start
 ```
 
 - Create `admin` account
+
 ```
 mongo
 > use admin;
@@ -145,6 +171,7 @@ mongo
 ```
 
 - Public db
+
 ```
 $ sudo nano /etc/mongod.conf
 
@@ -159,6 +186,7 @@ security:
 ```
 
 - Restart db
+
 ```
 sudo service mongod restart
 
@@ -167,24 +195,29 @@ sudo service mongod status
 ```
 
 - Test connection
+
 ```
 mongo -u DB_USERNAME -p DB_PASSWORD 127.0.0.1/DB_NAME
 ```
 
 ## Prepare source
+
 - Clone source
+
 ```
 git clone https://github.com/nhancv/nhancv-api.git
 cd nhancv-api
 ```
 
 - Create .env
+
 ```
 # env: dev, prod
 ENV=prod
 ```
 
 ## Open firewall ports
+
 ```
 sudo ufw allow 3000
 ```
@@ -192,27 +225,75 @@ sudo ufw allow 3000
 ## Run app
 
 - In the first time
+
 ```
-# Install dep
 npm i
+```
+
+- Start app
+
+```
+pm2 --name nhancv-prod start npm -- run start:prod
+
+# Custom log date
 pm2 --log-date-format="YYYY-MM-DD HH:mm Z" --name nhancv-prod start npm -- run start:prod
+
+# No Auto Restart
+# https://pm2.keymetrics.io/docs/usage/restart-strategies/
+pm2 --name nhancv-prod --no-autorestart start npm -- run start:prod
+
 ```
+
 - Reload app
+
 ```
-pm2 reload nhancv-prod
+pm2 reload nhancv-prod --update-env
 ```
+
 - View logs
+
 ```
 pm2 logs nhancv-prod
 ```
+
 - Monitor
+
 ```
 pm2 monit
 ```
+
 - Stop/Delete all
+
 ```
 pm2 stop all
 pm2 delete all
+```
+
+- Stop and start
+
+```
+PROJECT_ID=nhancv-prod
+pm2 delete -s $PROJECT_ID || :
+pm2 --name $PROJECT_ID start npm -- run start:prod
+```
+
+## Autostart after reboot
+
+```
+Save current process or Freeze a process list on reboot via:
+$ pm2 save
+
+Register Startup Script
+$ pm2 startup
+
+Un-register startup on boot:
+$ pm2 unstartup systemd
+
+After save process list, you can manually restore list after reboot instead of restart each process or use Startup Script
+$ pm2 resurrect
+
+Check system log here
+sudo cat /var/log/syslog
 ```
 
 ## [Optional] Run app in Cluster mode
@@ -224,6 +305,9 @@ https://www.youtube.com/watch?v=t6YOCZ_XAhI
 ```
 # Start all applications
 pm2 start ecosystem.config.js
+
+or
+pm2 --name nhancv-prod -i max start npm -- run start:prod
 
 # Stop all
 pm2 stop ecosystem.config.js
@@ -249,6 +333,7 @@ api.nhancv.com
 ## (OPTIONAL) Start dev on multi terminal on VPS with tmux
 
 ### Install tmux
+
 ```
 sudo apt install tmux
 
@@ -277,11 +362,13 @@ tmux ls
 ```
 
 ### Install local https server
+
 ```
 npm i -g local-web-server
 ```
 
 ### Start debug mode
+
 ```
 # new/attach tmux section
 tmux a
@@ -304,7 +391,9 @@ JOUT=jmeter_`date +"%y%m%d_%H%M%S"` && mkdir -p $JOUT && jmeter -n -t jmeter_tes
 ```
 
 ## (OPTIONAL FOR DOMAIN)
+
 ## Install nginx
+
 ```
 sudo apt update
 sudo apt install nginx
@@ -321,6 +410,7 @@ File: api.nhancv.com
 ```
 
 ## Setup SSL Https
+
 ```
 [OBSOLETED]
 sudo apt update

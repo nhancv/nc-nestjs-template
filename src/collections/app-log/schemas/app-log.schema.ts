@@ -1,15 +1,14 @@
-import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
-import {Document} from 'mongoose';
-import {ApiProperty} from "@nestjs/swagger";
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
+import { ApiProperty } from '@nestjs/swagger';
 
 @Schema()
 export class AppLog extends Document {
-
-  @Prop({required: true})
+  @Prop({ required: true })
   @ApiProperty()
   type: string;
 
-  @Prop({required: true})
+  @Prop({ required: true })
   @ApiProperty()
   message: string;
 
@@ -25,15 +24,24 @@ export class AppLog extends Document {
   @ApiProperty()
   index3?: string;
 
-  @Prop({type: Date, default: Date.now})
+  @Prop({ type: Date, default: Date.now })
   @ApiProperty()
   createdAt: Date;
 
-  @Prop({type: Date, default: Date.now})
+  @Prop({ type: Date, default: Date.now })
   @ApiProperty()
   updatedAt: Date;
 
-  constructor(doc: any, type: string, message: string, index1: string, index2: string, index3: string, createdAt: Date, updatedAt: Date) {
+  constructor(
+    doc: any,
+    type: string,
+    message: string,
+    index1: string,
+    index2: string,
+    index3: string,
+    createdAt: Date,
+    updatedAt: Date,
+  ) {
     super(doc);
     this.type = type;
     this.message = message;

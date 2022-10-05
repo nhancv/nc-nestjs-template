@@ -1,21 +1,45 @@
-import {NestFactory} from '@nestjs/core';
-import {AppModule} from './app/app.module';
-import {AllExceptionFilter} from "./utils/all.exception.filter";
-import {Logger, ValidationPipe} from "@nestjs/common";
-import {DocumentBuilder, SwaggerModule} from "@nestjs/swagger";
-import morgan from 'morgan';
+import { NestFactory } from '@nestjs/core';
+import { Logger, ValidationPipe } from '@nestjs/common';
+import { NestExpressApplication } from '@nestjs/platform-express';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import fs from 'fs';
 import moment from 'moment';
-import {MigrationService} from "./packages/migration/migration.service";
-import {MigrationModule} from "./packages/migration/migration.module";
-import {NestExpressApplication} from "@nestjs/platform-express";
-import {AppService} from "./app/app.service";
+import morgan from 'morgan';
+import { AppModule } from './app.module';
+import { AppService } from './app.service';
+import { AllExceptionFilter } from './utils/all.exception.filter';
+import { AppUtil } from './utils/app.util';
+import { MigrationService } from './packages/migration/migration.service';
+import { MigrationModule } from './packages/migration/migration.module';
+
+const NODE_ENV = process.env.NODE_ENV;
+const PORT = Number(process.env.PORT);
+const ENABLE_HTTPS = AppUtil.parseBool(process.env.ENABLE_HTTPS);
+const ENABLE_WEB = AppUtil.parseBool(process.env.ENABLE_WEB);
+const ENABLE_WORKER = AppUtil.parseBool(process.env.ENABLE_WORKER);
+
+// Add this to the VERY top of the first file loaded in your app
+const AMP_SECRET_TOKEN = process.env.AMP_SECRET_TOKEN;
+const AMP_ENDPOINT_URL = process.env.AMP_ENDPOINT_URL;
+if (AMP_SECRET_TOKEN && AMP_ENDPOINT_URL) {
+  require('elastic-apm-node').start({
+    // Override the service name from package.json
+    // Allowed characters: a-z, A-Z, 0-9, -, _, and space
+    serviceName: process.env.npm_package_name,
+
+    // Use if APM Server requires a secret token
+    secretToken: process.env.AMP_SECRET_TOKEN,
+
+    // Set the custom APM Server URL (default: http://localhost:8200)
+    serverUrl: process.env.AMP_ENDPOINT_URL,
+
+    // Set the service environment
+    environment: NODE_ENV,
+  });
+}
 
 async function bootstrap() {
   const logger = new Logger('main');
-
-  const ENABLE_WEB = (process.env.ENABLE_WEB ?? 'true') == 'true';
-  const ENABLE_WORKER = (process.env.ENABLE_WORKER ?? 'false') == 'true';
-
   // Check worker api
   if (ENABLE_WEB) {
     //----------------------------//
@@ -29,9 +53,16 @@ async function bootstrap() {
      */
 
     // Create app instance for API mode
-    const app = await NestFactory.create<NestExpressApplication>(AppModule);
+    const appOptions = {};
+    if (ENABLE_HTTPS) {
+      appOptions['httpsOptions'] = {
+        key: fs.readFileSync('./ssl/localhost/server.key'),
+        cert: fs.readFileSync('./ssl/localhost/server.crt'),
+      };
+    }
+    const app = await NestFactory.create<NestExpressApplication>(AppModule, appOptions);
     app.set('trust proxy', 'loopback');
-    morgan.token('date', () => moment().utc().utcOffset("+0700").format());
+    morgan.token('date', () => moment().utc().utcOffset('+0700').format());
     const morganFormat = ':remote-addr - :remote-user [:date] :method :url :status - :response-time ms :user-agent';
     app.use(morgan(morganFormat));
     app.enableCors();
@@ -50,13 +81,12 @@ async function bootstrap() {
 
     // Migrate first
     // ...
-    const migrationService = app.select(MigrationModule).get(MigrationService, {strict: true});
+    const migrationService = app.select(MigrationModule).get(MigrationService, { strict: true });
     await migrationService.migrate();
 
     // Start api
-    const port = parseInt(process.env.PORT || '3000');
-    await app.listen(port, '0.0.0.0');
-    logger.log(`Application is running on: ${await app.getUrl()}`);
+    await app.listen(PORT, '0.0.0.0');
+    logger.log(`[${NODE_ENV}] Application is running on: ${await app.getUrl()}`);
 
     // Full mode
     if (ENABLE_WORKER) {
@@ -82,7 +112,6 @@ async function bootstrap() {
     // Start cronjob
     // ...
   }
-
 }
 
 bootstrap().then();

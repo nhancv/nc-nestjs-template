@@ -1,9 +1,9 @@
-import {Injectable, Logger} from '@nestjs/common';
-import {ConfigService} from "@nestjs/config";
-import {AppConfigService} from "../../collections/app-config/app-config.service";
-import {AppConfig} from "../../collections/app-config/schemas/app-config.schema";
-import {MigrationService1_0_0} from "./migration.service.1_0_0";
-import {Document} from "mongoose";
+import { Injectable, Logger } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { AppConfigService } from '../../collections/app-config/app-config.service';
+import { AppConfig } from '../../collections/app-config/schemas/app-config.schema';
+import { MigrationService1_0_0 } from './migration.service.1_0_0';
+import { Document } from 'mongoose';
 
 @Injectable()
 export class MigrationService {
@@ -13,15 +13,13 @@ export class MigrationService {
     private readonly configService: ConfigService,
     private readonly appConfigService: AppConfigService,
     private readonly migrateService1_0_0: MigrationService1_0_0,
-  ) {
-  }
+  ) {}
 
   // Clone data from source to another connector
   async cloneDatabaseFromSource(): Promise<void> {
     const sourceConnection = '';
     const targetConnection = '';
-    if (!sourceConnection || sourceConnection === '' ||
-      !targetConnection || targetConnection === '') {
+    if (!sourceConnection || sourceConnection === '' || !targetConnection || targetConnection === '') {
       console.log('sourceConnection or targetConnection is null');
       return;
     }
@@ -29,11 +27,11 @@ export class MigrationService {
     const mongooseOption = {
       useNewUrlParser: true,
       useCreateIndex: true,
-      useUnifiedTopology: true
+      useUnifiedTopology: true,
     };
     const sourceMongoose = await mongoose.createConnection(sourceConnection, mongooseOption);
     const targetMongoose = await mongoose.createConnection(targetConnection, mongooseOption);
-    const initTables: { name: string, schema: Document }[] = [];
+    const initTables: { name: string; schema: Document }[] = [];
     for (let i = 0; i < initTables.length; i++) {
       const table = initTables[i];
       console.log(`Import table "${table.name}"`);
@@ -69,7 +67,7 @@ export class MigrationService {
 
       let nextVersion: string;
       switch (currentAppVersion) {
-        case '0.0.0' :
+        case '0.0.0':
         // case '1.0.0' :
         //   await this.migrateService1_0_0.migrate(appConfig);
         default:
@@ -81,7 +79,7 @@ export class MigrationService {
         this.logger.debug(`Current version: ${currentAppVersion} => ${nextVersion}`);
         await this.appConfigService.putAppConfig({
           ...appConfig.toObject(),
-          version: nextVersion
+          version: nextVersion,
         });
       }
     }
@@ -99,5 +97,4 @@ export class MigrationService {
 
     return appConfig;
   }
-
 }

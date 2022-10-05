@@ -1,10 +1,9 @@
-import {IsNotEmpty} from 'class-validator';
-import {ApiProperty} from "@nestjs/swagger";
+import { IsNotEmpty } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateAppLogDto {
-
   @IsNotEmpty()
-  @ApiProperty({description: 'Log type', example: 'app'})
+  @ApiProperty({ description: 'Log type', example: 'app' })
   type: string;
 
   @IsNotEmpty()

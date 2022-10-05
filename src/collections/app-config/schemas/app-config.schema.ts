@@ -1,22 +1,22 @@
-import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
-import {Document} from 'mongoose';
-import {ApiProperty} from "@nestjs/swagger";
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
+import { ApiProperty } from '@nestjs/swagger';
 
 @Schema()
 export class AppConfig extends Document {
-  @Prop({required: true})
+  @Prop({ required: true })
   @ApiProperty()
   version: string;
 
-  @Prop({required: true})
+  @Prop({ required: true })
   @ApiProperty()
   maintenance: boolean;
 
-  @Prop({type: Date, default: Date.now})
+  @Prop({ type: Date, default: Date.now })
   @ApiProperty()
   createdAt: Date;
 
-  @Prop({type: Date, default: Date.now})
+  @Prop({ type: Date, default: Date.now })
   @ApiProperty()
   updatedAt: Date;
 

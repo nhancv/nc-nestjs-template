@@ -1,5 +1,5 @@
-import {Test, TestingModule} from '@nestjs/testing';
-import {AppConfigService} from './app-config.service';
+import { Test, TestingModule } from '@nestjs/testing';
+import { AppConfigService } from './app-config.service';
 
 describe('AppConfigService', () => {
   let service: AppConfigService;
