@@ -25,7 +25,7 @@ export class AppConfigService {
         ...appConfigDto,
         updatedAt: moment().toDate(),
       },
-      { upsert: true },
+      { upsert: true, setDefaultsOnInsert: true },
     );
     return this.getAppConfig();
   }

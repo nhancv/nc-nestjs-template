@@ -29,7 +29,14 @@ import { MigrationModule } from './modules/migration/migration.module';
         abortEarly: true,
       },
     }),
-    MongooseModule.forRoot(process.env.MONGODB_URL ?? ''),
+    MongooseModule.forRootAsync({
+      useFactory: async (config: ConfigService) => ({
+        uri: config.get('MONGODB_URL'),
+        useNewUrlParser: true,
+        useCreateIndex: true,
+      }),
+      inject: [ConfigService],
+    }),
     ScheduleModule.forRoot(),
     MigrationModule,
     AppConfigModule,
