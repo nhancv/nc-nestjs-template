@@ -9,8 +9,8 @@ import { AppModule } from './app.module';
 import { AppService } from './app.service';
 import { AllExceptionFilter } from './utils/all.exception.filter';
 import { AppUtil } from './utils/app.util';
-import { MigrationService } from './packages/migration/migration.service';
-import { MigrationModule } from './packages/migration/migration.module';
+import { MigrationService } from './modules/migration/migration.service';
+import { MigrationModule } from './modules/migration/migration.module';
 
 const NODE_ENV = process.env.NODE_ENV;
 const PORT = Number(process.env.PORT);

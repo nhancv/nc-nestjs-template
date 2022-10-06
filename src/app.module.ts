@@ -11,7 +11,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ScheduleModule } from '@nestjs/schedule';
 import { AppLogModule } from './collections/app-log/app-log.module';
 import { AppConfigModule } from './collections/app-config/app-config.module';
-import { MigrationModule } from './packages/migration/migration.module';
+import { MigrationModule } from './modules/migration/migration.module';
 
 @Module({
   imports: [
