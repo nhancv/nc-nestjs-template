@@ -16,11 +16,15 @@ export class CronService {
   }
 
   // Create dynamically new cron job
+  _processing = false;
   private addCronJob(name: string, cronTime: string, logic: () => any): void {
     const job = new CronJob(cronTime, async () => {
+      if (this._processing) return;
+      this._processing = true;
       if (logic) {
         await logic();
       }
+      this._processing = false;
     });
 
     this.schedulerRegistry.addCronJob(name, job);
