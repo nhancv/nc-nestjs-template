@@ -9,7 +9,7 @@
 - Clone BE
 
 ```bash
-git clone https://gitlab.com/nhancv/nc-nestjs-template.git
+git clone https://github.com/nhancv/nc-nestjs-template.git
 cd nc-nestjs-template
 ```
 
