@@ -19,6 +19,13 @@ cd nc-nestjs-template
 yarn install
 ```
 
+- Configuration
+
+```bash
+cp .env_sample .env
+=> Correct env content
+```
+
 ## Development
 
 ```bash
