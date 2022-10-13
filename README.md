@@ -6,50 +6,63 @@
 
 ## Installation
 
+- Clone BE
+
 ```bash
-$ npm install
+git clone https://gitlab.com/nhancv/nc-nestjs-template.git
+cd nc-nestjs-template
 ```
 
-## Running the app
+- Install libs
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# build production app
-$ npm run build
-
-# production mode
-$ npm run start:prod
+yarn install
 ```
 
-## Test
+## Development
 
 ```bash
-# unit tests
-$ npm run test
+# Develop without watch mode
+yarn start
 
-# e2e tests
-$ npm run test:e2e
+# Develop in watch mode
+yarn start:dev
+```
 
-# test coverage
-$ npm run test:cov
+## Testing
+
+```bash
+# Unit tests
+yarn test
+
+# E2E tests
+yarn test:e2e
+
+# Test coverage
+yarn test:cov
+```
+
+## Production
+
+```bash
+# Build
+yarn build
+
+# Run app in production
+yarn start:prod
 ```
 
 ## Deploy to integration [HEROKU]
 
 ### Getting started with Heroku
-```
+
+```bash
 heroku login
 heroku create <app name>
 git add .
-git commit -m 'deploy to heroku'
+git commit -m 'ci: deploy to heroku'
 git push heroku master
 
-Test at: <app name>.herokuapp.com
-Log view: heroku logs -t
+# Test at: <app name>.herokuapp.com
+# Log view: heroku logs -t
 ```
-
