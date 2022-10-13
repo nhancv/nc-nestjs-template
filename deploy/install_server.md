@@ -1,6 +1,7 @@
 # Deploy
 
 ## Server
+
 ```
 ssh root@1.2.3.4
 
@@ -31,6 +32,7 @@ ssh nhancv@1.2.3.4
 ```
 
 ## Setup timezone (optional)
+
 ```
 # View current timezone info
 timedatectl
@@ -49,11 +51,13 @@ timedatectl
 ```
 
 ## Setup git
+
 ```
-sudo apt install git -y
+sudo apt install -y git
 ```
 
 ## Setup nodejs
+
 ```
 curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
 sudo apt install -y nodejs
@@ -100,11 +104,13 @@ pm2 set pm2-logrotate:retain 10
 ## Install MongoDB
 
 - Uninstall previous version
+
 ```
 sudo apt-get purge mongodb-*
 ```
 
 - Install new
+
 ```
 * Check linux version: lsb_release -a
 sudo apt install wget
@@ -127,6 +133,7 @@ sudo service mongod start
 ```
 
 - Controls
+
 ```
 - Get version: mongod --version
 - Start: sudo service mongod start
@@ -137,6 +144,7 @@ sudo service mongod start
 ```
 
 - Create `admin` account
+
 ```
 mongo
 > use admin;
@@ -163,6 +171,7 @@ mongo
 ```
 
 - Public db
+
 ```
 $ sudo nano /etc/mongod.conf
 
@@ -177,6 +186,7 @@ security:
 ```
 
 - Restart db
+
 ```
 sudo service mongod restart
 
@@ -185,24 +195,29 @@ sudo service mongod status
 ```
 
 - Test connection
+
 ```
 mongo -u DB_USERNAME -p DB_PASSWORD 127.0.0.1/DB_NAME
 ```
 
 ## Prepare source
+
 - Clone source
+
 ```
 git clone https://github.com/nhancv/nhancv-api.git
 cd nhancv-api
 ```
 
 - Create .env
+
 ```
 # env: dev, prod
 ENV=prod
 ```
 
 ## Open firewall ports
+
 ```
 sudo ufw allow 3000
 ```
@@ -210,10 +225,13 @@ sudo ufw allow 3000
 ## Run app
 
 - In the first time
+
 ```
 npm i
 ```
+
 - Start app
+
 ```
 pm2 --name nhancv-prod start npm -- run start:prod
 
@@ -225,25 +243,34 @@ pm2 --log-date-format="YYYY-MM-DD HH:mm Z" --name nhancv-prod start npm -- run s
 pm2 --name nhancv-prod --no-autorestart start npm -- run start:prod
 
 ```
+
 - Reload app
+
 ```
 pm2 reload nhancv-prod --update-env
 ```
+
 - View logs
+
 ```
 pm2 logs nhancv-prod
 ```
+
 - Monitor
+
 ```
 pm2 monit
 ```
+
 - Stop/Delete all
+
 ```
 pm2 stop all
 pm2 delete all
 ```
 
 - Stop and start
+
 ```
 PROJECT_ID=nhancv-prod
 pm2 delete -s $PROJECT_ID || :
@@ -306,6 +333,7 @@ api.nhancv.com
 ## (OPTIONAL) Start dev on multi terminal on VPS with tmux
 
 ### Install tmux
+
 ```
 sudo apt install tmux
 
@@ -334,11 +362,13 @@ tmux ls
 ```
 
 ### Install local https server
+
 ```
 npm i -g local-web-server
 ```
 
 ### Start debug mode
+
 ```
 # new/attach tmux section
 tmux a
@@ -361,7 +391,9 @@ JOUT=jmeter_`date +"%y%m%d_%H%M%S"` && mkdir -p $JOUT && jmeter -n -t jmeter_tes
 ```
 
 ## (OPTIONAL FOR DOMAIN)
+
 ## Install nginx
+
 ```
 sudo apt update
 sudo apt install nginx
@@ -378,6 +410,7 @@ File: api.nhancv.com
 ```
 
 ## Setup SSL Https
+
 ```
 [OBSOLETED]
 sudo apt update

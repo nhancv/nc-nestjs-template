@@ -4,6 +4,32 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
+## Requisites
+
+- Git (already config user)
+
+```bash
+# Install
+sudo apt install -y git
+
+# Config
+git config --global user.name "YourName"
+git config --global user.email "YourEmail"
+```
+
+- Nodejs
+
+```
+curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+sudo apt install -y nodejs
+```
+
+- Yarn
+
+```
+sudo npm install --global yarn
+```
+
 ## Installation
 
 - Clone BE
