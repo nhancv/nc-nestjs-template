@@ -17,8 +17,8 @@ export class AppController {
   })
   @ApiOperation({ summary: 'hello' })
   getHello(): BaseResponse<string> {
-    const response: BaseResponse<string> = {};
-    response.data = this.appService.getHello();
-    return response;
+    return {
+      data: this.appService.getHello(),
+    };
   }
 }
