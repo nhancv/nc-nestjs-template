@@ -16,9 +16,9 @@ export class AppController {
     type: String,
   })
   @ApiOperation({ summary: 'hello' })
-  async getHello(): Promise<BaseResponse<string>> {
+  getHello(): BaseResponse<string> {
     return {
-      data: await this.appService.getHello(),
+      data: this.appService.getHello(),
     };
   }
 }
