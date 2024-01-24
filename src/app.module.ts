@@ -31,14 +31,15 @@ import { AppController } from './app.controller';
     // https://docs.nestjs.com/security/rate-limiting
     // https://github.com/nestjs/throttler
     // The above will set the global options for the ttl (the time to live in seconds),
-    // and the limit (the maximum number of requests within the ttl)
+    // and the limit (the maximum number of requests within the ttl).
     // for the routes of your application that are guarded.
+    // Example: no more than 30 calls in 1 seconds
     ThrottlerModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (config: ConfigService) => ({
-        ttl: config.get('THROTTLE_TTL', 60),
-        limit: config.get('THROTTLE_LIMIT', 1000),
+        ttl: config.get('THROTTLE_TTL', 1),
+        limit: config.get('THROTTLE_LIMIT', 30),
       }),
     }),
   ],

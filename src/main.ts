@@ -1,5 +1,5 @@
 import { NestFactory } from '@nestjs/core';
-import { Logger, ValidationPipe } from '@nestjs/common';
+import { Logger, ValidationPipe, VersioningType } from '@nestjs/common';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import fs from 'fs';
@@ -59,6 +59,8 @@ async function bootstrap() {
     app.setGlobalPrefix('api');
     app.useGlobalFilters(new AllExceptionFilter());
     app.useGlobalPipes(new ValidationPipe());
+    app.enableVersioning();
+
     // Enable Swagger api docs module
     const options = new DocumentBuilder()
       .setTitle('The API document')
