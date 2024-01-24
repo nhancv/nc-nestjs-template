@@ -33,7 +33,7 @@ import { AppController } from './app.controller';
     // The above will set the global options for the ttl (the time to live in seconds),
     // and the limit (the maximum number of requests within the ttl).
     // for the routes of your application that are guarded.
-    // Example: no more than 30 calls in 1 seconds
+    // Example: no more than 30 calls in 1 second
     ThrottlerModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
