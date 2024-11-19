@@ -1,12 +1,15 @@
 import { join } from 'path';
 import * as Joi from 'joi';
 import { APP_GUARD } from '@nestjs/core';
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AppService } from './app.service';
 import { AppController } from './app.controller';
+import { PrometheusModule } from './modules/prometheus/prometheus.module';
+import { PrometheusMiddleware } from './modules/prometheus/prometheus.middleware';
+import { PrometheusController } from './modules/prometheus/prometheus.controller';
 
 @Module({
   imports: [
@@ -42,8 +45,9 @@ import { AppController } from './app.controller';
         limit: config.get('THROTTLE_LIMIT', 30),
       }),
     }),
+    PrometheusModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, PrometheusController],
   providers: [
     AppService,
     {
@@ -52,4 +56,8 @@ import { AppController } from './app.controller';
     },
   ],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(PrometheusMiddleware).exclude({ path: '/api/metrics', method: RequestMethod.ALL }).forRoutes('*');
+  }
+}

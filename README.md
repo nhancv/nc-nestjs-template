@@ -62,6 +62,12 @@ yarn start
 yarn start:dev
 ```
 
+- Browser: http://localhost:3000
+- Swagger: http://localhost:3000/docs
+- Metrics: http://localhost:3000/api/metrics
+- Prometheus: http://localhost:9090/targets
+- Grafana: http://localhost:8000
+
 ## Testing
 
 ```bash
