@@ -36,12 +36,15 @@ import { PrometheusController } from './modules/prometheus/prometheus.controller
     // The above will set the global options for the ttl (the time to live in seconds),
     // and the limit (the maximum number of requests within the ttl).
     // for the routes of your application that are guarded.
+    // By default, it applies to each client IP separately unless customized otherwise.
     // Example: no more than 30 calls in 1 second
     ThrottlerModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (config: ConfigService) => ({
+        // Time to live for the rate limit (in seconds)
         ttl: config.get('THROTTLE_TTL', 1),
+        // Max number of requests per `ttl` seconds
         limit: config.get('THROTTLE_LIMIT', 30),
       }),
     }),
