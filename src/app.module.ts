@@ -1,5 +1,5 @@
 import { join } from 'path';
-import * as Joi from 'joi';
+import Joi from 'joi';
 import { APP_GUARD } from '@nestjs/core';
 import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 import { ServeStaticModule } from '@nestjs/serve-static';
@@ -29,24 +29,21 @@ import { PrometheusController } from './modules/prometheus/prometheus.controller
     }),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'public'),
-      exclude: ['/api*'],
+      exclude: ['/api/(.*)'],
     }),
     // https://docs.nestjs.com/security/rate-limiting
     // https://github.com/nestjs/throttler
-    // The above will set the global options for the ttl (the time to live in seconds),
-    // and the limit (the maximum number of requests within the ttl).
-    // for the routes of your application that are guarded.
-    // By default, it applies to each client IP separately unless customized otherwise.
-    // Example: no more than 30 calls in 1 second
     ThrottlerModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: (config: ConfigService) => ({
-        // Time to live for the rate limit (in seconds)
-        ttl: config.get('THROTTLE_TTL', 1),
-        // Max number of requests per `ttl` seconds
-        limit: config.get('THROTTLE_LIMIT', 30),
-      }),
+      useFactory: (config: ConfigService) => [
+        {
+          // the number of milliseconds that each request will last in storage
+          ttl: config.get('THROTTLE_TTL', 60_000),
+          // the maximum number of requests within the TTL limit
+          limit: config.get('THROTTLE_LIMIT', 60),
+        },
+      ],
     }),
     PrometheusModule,
   ],

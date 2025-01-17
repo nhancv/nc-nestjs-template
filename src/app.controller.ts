@@ -9,7 +9,8 @@ import { Throttle } from '@nestjs/throttler';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Throttle(2, 1)
+  // Override default configuration for Rate limiting and duration.
+  @Throttle({ default: { limit: 3, ttl: 60_000 } })
   @Get()
   @ApiOkResponse({
     description: 'Test app works',

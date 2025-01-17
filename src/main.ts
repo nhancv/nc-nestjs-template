@@ -20,6 +20,7 @@ const ENABLE_WORKER = AppUtil.parseBool(process.env.ENABLE_WORKER);
 // Add this to the VERY top of the first file loaded in your app
 const { npm_package_name, APM_SERVICE_NAME, APM_SECRET_TOKEN, APM_ENDPOINT_URL, APM_ENV } = process.env;
 if (APM_SECRET_TOKEN && APM_ENDPOINT_URL) {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   require('elastic-apm-node').start({
     serviceName: APM_SERVICE_NAME || npm_package_name,
     secretToken: APM_SECRET_TOKEN,

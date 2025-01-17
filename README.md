@@ -1,8 +1,8 @@
-# NestJS Template
+# NestJS Template v2.0.0
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+[Nest v10.4.9](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
 ## Requisites
 
@@ -63,8 +63,16 @@ yarn start:dev
 ```
 
 - Browser: http://localhost:3000
+- API: http://localhost:3000/api
 - Swagger: http://localhost:3000/docs
 - Metrics: http://localhost:3000/api/metrics
+
+## Monitoring
+
+```
+docker-compose -f ./deploy/docker/docker-compose.yml up
+```
+
 - Prometheus: http://localhost:9090/targets
 - Grafana: http://localhost:8000
 

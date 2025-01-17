@@ -7,11 +7,11 @@ services:
   #  app:
   #    image: nhancv/nc-nestjs-template
   #    build:
-  #      context: ../..
-  #      dockerfile: ../../Dockerfile
+  #      context: ../../
+  #      dockerfile: ./Dockerfile
   #    container_name: app
   #    env_file:
-  #      - ../../.env_sample
+  #      - ./.env_sample
   #    restart: always
   #    ports:
   #      - "3000:3000"
