@@ -16,7 +16,7 @@ import { PrometheusController } from './modules/prometheus/prometheus.controller
     ConfigModule.forRoot({
       isGlobal: true,
       validationSchema: Joi.object({
-        NODE_ENV: Joi.string().valid('dev', 'prod').default('dev'),
+        NODE_ENV: Joi.string().valid('dev', 'prod', 'test').default('dev'),
         PORT: Joi.number().default(3000),
         ENABLE_HTTPS: Joi.bool().default(false),
         ENABLE_WEB: Joi.bool().default(true),
