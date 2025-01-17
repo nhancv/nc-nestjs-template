@@ -5,3 +5,4 @@
 node_modules
 # Just commit dist in build branch
 dist
+coverage
