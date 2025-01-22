@@ -1,0 +1,15 @@
+# docker-compose up --build
+services:
+  node-1:
+    build: .
+    container_name: node-1
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: dev
+
+  node-2:
+    build: .
+    container_name: node-2
+    environment:
+      NODE_ENV: prod

@@ -4,7 +4,7 @@ import { AppModule } from './app.module';
 import { AppService } from './app.service';
 
 async function bootstrap() {
-  const logger = new Logger('main');
+  const logger = new Logger(process.env.NODE_ENV);
   //-----------------------------------//
   //------Standalone Applications------//
   // https://docs.nestjs.com/standalone-applications
