@@ -1,6 +1,4 @@
-FROM node:18
-
-#RUN git clone "https://github.com/nhancv/nc-nestjs-template.git"
+FROM node:20
 
 WORKDIR /app
 COPY . .

@@ -19,6 +19,9 @@
     "heroku-postbuild": "echo Skip build on Heroku",
     "prepare": "husky install"
   },
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "dependencies": {
     "@nestjs/common": "10.4.15",
     "@nestjs/config": "^3.3.0",
