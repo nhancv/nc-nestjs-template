@@ -12,5 +12,10 @@
         "bracketSpacing": true
       }
     }
-  ]
+  ],
+  "importOrder": ["^@utils/(.*)$", "^./modules/(.*)$", "^[./]"],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true,
+  "plugins": ["@trivago/prettier-plugin-sort-imports"],
+  "importOrderParserPlugins": ["typescript", "classProperties", "decorators-legacy"]
 }
