@@ -1,8 +1,10 @@
-import { Controller, Get, Version, VERSION_NEUTRAL } from '@nestjs/common';
-import { AppService } from './app.service';
-import { BaseResponse } from './utils/base.response';
+import { Controller, Get, VERSION_NEUTRAL, Version } from '@nestjs/common';
 import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Throttle } from '@nestjs/throttler';
+
+import { BaseResponse } from '@utils/base.response';
+
+import { AppService } from './app.service';
 
 @ApiTags('app')
 @Controller({ version: VERSION_NEUTRAL })

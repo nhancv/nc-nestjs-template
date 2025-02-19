@@ -1,7 +1,8 @@
 import { Controller, Get, Res } from '@nestjs/common';
-import { Response } from 'express';
-import { PrometheusModule } from './prometheus.module';
 import { Throttle } from '@nestjs/throttler';
+import { Response } from 'express';
+
+import { PrometheusModule } from './prometheus.module';
 
 @Controller('metrics')
 export class PrometheusController {

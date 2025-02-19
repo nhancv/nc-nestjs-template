@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { Registry, Counter, Histogram, collectDefaultMetrics } from 'prom-client';
+import { Counter, Histogram, Registry, collectDefaultMetrics } from 'prom-client';
 
 @Module({
   providers: [PrometheusModule],
