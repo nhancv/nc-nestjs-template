@@ -1,7 +1,6 @@
-import { Response } from 'express';
-
 import { Controller, Get, Res } from '@nestjs/common';
 import { Throttle } from '@nestjs/throttler';
+import { Response } from 'express';
 
 import { PrometheusModule } from './prometheus.module';
 

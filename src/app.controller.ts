@@ -2,7 +2,7 @@ import { Controller, Get, VERSION_NEUTRAL, Version } from '@nestjs/common';
 import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Throttle } from '@nestjs/throttler';
 
-import { BaseResponse } from '@utils/base.response';
+import { BaseResponse } from '~/utils/base.response';
 
 import { AppService } from './app.service';
 

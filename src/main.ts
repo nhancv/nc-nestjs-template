@@ -1,14 +1,13 @@
-import fs from 'fs';
-import moment from 'moment';
-import morgan from 'morgan';
-
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import fs from 'fs';
+import moment from 'moment';
+import morgan from 'morgan';
 
-import { AllExceptionFilter } from '@utils/all.exception.filter';
-import { AppUtil } from '@utils/app.util';
+import { AllExceptionFilter } from '~/utils/all.exception.filter';
+import { AppUtil } from '~/utils/app.util';
 
 import { AppModule } from './app.module';
 import { AppService } from './app.service';
