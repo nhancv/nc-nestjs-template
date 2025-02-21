@@ -1,14 +1,15 @@
+import Joi from 'joi';
+import { join } from 'path';
+
 import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
-import Joi from 'joi';
-import { join } from 'path';
 
-import { PrometheusController } from './modules/prometheus/prometheus.controller';
-import { PrometheusMiddleware } from './modules/prometheus/prometheus.middleware';
-import { PrometheusModule } from './modules/prometheus/prometheus.module';
+import { PrometheusController } from '@modules/prometheus/prometheus.controller';
+import { PrometheusMiddleware } from '@modules/prometheus/prometheus.middleware';
+import { PrometheusModule } from '@modules/prometheus/prometheus.module';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
